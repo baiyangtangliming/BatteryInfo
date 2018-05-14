@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="app_color_theme_1">#EF5362</color> <!-- Grapefruit -->
+    <color name="app_color_theme_2">#FE6D4B</color> <!-- Bittersweet -->
+    <color name="app_color_theme_3">#FFCF47</color> <!-- Sunflower -->
+    <color name="app_color_theme_4">#9FD661</color> <!-- Grass -->
+    <color name="app_color_theme_5">#3FD0AD</color> <!-- Mint -->
+    <color name="app_color_theme_6">#2BBDF3</color> <!-- Aqua -->
+    <color name="app_color_theme_7">#5A9AEF</color> <!-- Blue Jeans -->
+    <color name="app_color_theme_8">#AC8FEF</color> <!-- Lavender -->
+    <color name="app_color_theme_9">#EE85C1</color> <!-- Pink Rose -->
+    <color name="config_color_gray_1">#353C46</color>
+    <color name="config_color_gray_2">#49505A</color>
+    <color name="config_color_gray_3">#5D646E</color>
+    <color name="config_color_gray_4">#717882</color>
+    <color name="config_color_gray_5">#858C96</color>
+    <color name="config_color_gray_6">#99A0AA</color>
+    <color name="config_color_gray_7">#ADB4BE</color>
+    <color name="config_color_gray_8">#C4C8D0</color>
+    <color name="config_color_gray_9">#D8DCE4</color>
+
+
+    <color name="config_color_black">#000000</color>
+    <color name="config_color_transparent">#00000000</color>
+    <color name="config_color_white">#ffffff</color>
+
+    <color name="config_color_blue">#1B88EE</color>
+</resources>
