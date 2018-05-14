@@ -10,7 +10,7 @@ public class BatteryUtil {
      * @return
      */
     public static boolean setChargeCurrentMax(int limit) {
-        if(new File("/sys/class/power_supply/battery/constant_charge_current_max").exists()){
+        if(!new File("/sys/class/power_supply/battery/constant_charge_current_max").exists()){
             return false;
         }
         String cmd =
