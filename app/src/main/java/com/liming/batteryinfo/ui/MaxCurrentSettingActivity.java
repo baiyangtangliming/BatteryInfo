@@ -34,9 +34,14 @@ public class MaxCurrentSettingActivity extends BaseActivity implements View.OnCl
                         finish();
                         break;
             case R.id.btn_submit:
-                String obj = this.battery_text.getText().toString();
+                String obj = this.battery_text.getText().toString().trim();
+                if (obj.isEmpty()) {
+                    Toast.makeText(getBaseContext(), "请输入电流值",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 StringBuffer shell=new StringBuffer();
-                if (BatteryUtil.setChargeCurrentMax(Integer.valueOf(obj.trim()))) {
+                if (BatteryUtil.setChargeCurrentMax(Integer.valueOf(obj))) {
                     Toast.makeText(getBaseContext(), "成功修改充电电流为" +
                                     obj + "mA",
                             Toast.LENGTH_SHORT).show();
