@@ -9,7 +9,6 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import com.liming.batteryinfo.R;
 import com.liming.batteryinfo.adapter.ToolAdapter;
 import com.liming.batteryinfo.entity.ToolBean;
-import com.liming.batteryinfo.utils.QMUIStatusBarHelper;
 import com.liming.batteryinfo.utils.RootCmd;
 import com.liming.batteryinfo.utils.SystemInfo;
 import com.liming.batteryinfo.utils.ViewInject;
@@ -92,7 +90,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        QMUIStatusBarHelper.translucent(this);
         mTimeHandler.sendEmptyMessage(0);
         mTimeHandler.sendEmptyMessage(1);
         Typeface mtypeface=Typeface.createFromFile("/system/fonts/Roboto-Thin.ttf");
@@ -100,8 +97,9 @@ public class MainActivity extends BaseActivity {
         temp.setTypeface(mtypeface);
         voltage.setTypeface(mtypeface);
 
-        listItemArrayList.add(new ToolBean("电池健康程度（仅供参考）","数据不准确？点击进行电量校准",SystemInfo.getHealthy()));
-        listItemArrayList.add(new ToolBean("电池电量百分比","点击可修改电量百分比及充电状态",SystemInfo.getQuantity(this)));
+        listItemArrayList.add(new ToolBean("电池健康程度（仅供参考）","数据不准确？点击进行电量校准",SystemInfo.getHealthy()+"%"));
+        listItemArrayList.add(new ToolBean("电池电量百分比","点击可修改电量百分比及充电状态",SystemInfo.getQuantity(this)+"%"));
+        listItemArrayList.add(new ToolBean("电池充电最大电流","点击可突破限制",SystemInfo.getConstant_charge_current_max()+"mA"));
         //生成适配器的ImageItem 与动态数组的元素相对应
         toolAdapter = new ToolAdapter(this,listItemArrayList);
         //添加并且显示
@@ -114,11 +112,11 @@ public class MainActivity extends BaseActivity {
                     case 0:
                         if (SystemInfo.getQuantity(MainActivity.this)==100){
                             new AlertDialog.Builder(MainActivity.this).setTitle("温馨提示")//设置对话框标题
-                                    .setMessage("确定要清除电池信息吗？")//设置显示的内容
+                                    .setMessage("确定要清除电池信息吗？清除成功后会自动重启！")//设置显示的内容
                                     .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
-                                            if (RootCmd.execRootCmdSilent("rm /data/system/batterystats.bin\n")!=-1){
+                                            if (RootCmd.execRootCmdSilent("rm /data/system/batterystats.bin\nreboot\n")!=-1){
                                                 Toast.makeText(MainActivity.this, "清空电池信息成功", Toast.LENGTH_SHORT).show();
                                             }else {
                                                 Toast.makeText(MainActivity.this, "清空电池信息失败", Toast.LENGTH_SHORT).show();
@@ -137,7 +135,7 @@ public class MainActivity extends BaseActivity {
                         startActivity(intent);
                         break;
                     default:
-                        Toast.makeText(getBaseContext(),listItemArrayList.get(position).getItemTool().toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),listItemArrayList.get(position).getItemTool().toString()+"功能加紧开发中",Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -166,7 +164,9 @@ public class MainActivity extends BaseActivity {
         }else {
             verticalBattery.setPower(quantity);
         }
-        listItemArrayList.get(1).setItemNum(quantity);
+        listItemArrayList.get(0).setItemNum(SystemInfo.getHealthy()+"%");
+        listItemArrayList.get(1).setItemNum(quantity+"%");
+        listItemArrayList.get(2).setItemNum(SystemInfo.getConstant_charge_current_max()+"mA");
         toolAdapter.notifyDataSetChanged();
     }
 
@@ -188,4 +188,5 @@ public class MainActivity extends BaseActivity {
         super.onBackPressed();
         System.exit(1);
     }
+
 }

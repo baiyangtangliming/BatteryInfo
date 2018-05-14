@@ -84,6 +84,7 @@ final public class SystemInfo {
     /**
      * 开启wifi
      */
+    @SuppressLint("MissingPermission")
     public static void getStartWifiEnabled() {
         // 判断当前wifi状态是否为开启状态
         if (!mWifiManager.isWifiEnabled()) {
@@ -156,7 +157,7 @@ final public class SystemInfo {
      */
     private static String getAndroidLowVersionMac(WifiManager wifiManager) {
         try {
-            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            @SuppressLint("MissingPermission") WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             String mac = wifiInfo.getMacAddress();
             if (TextUtils.isEmpty(mac)) {
                 return ERROR_MAC_STR;
@@ -378,6 +379,7 @@ final public class SystemInfo {
         return false;
     }
 
+    @SuppressLint("MissingPermission")
     private static NetworkInfo getNetworkInfo(Context context) {
 
         ConnectivityManager cm = (ConnectivityManager) context

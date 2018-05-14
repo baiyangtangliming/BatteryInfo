@@ -26,16 +26,16 @@ public class ToolBean {
     }
 
     public String getItemNum() {
-        return itemNum+"%";
+        return itemNum;
     }
 
-    public void setItemNum(int itemNum) {
-        this.itemNum = String.valueOf(itemNum);
+    public void setItemNum(String itemNum) {
+        this.itemNum = itemNum;
     }
 
-    public ToolBean(String itemTool, String itemTip, int itemNum) {
+    public ToolBean(String itemTool, String itemTip, String itemNum) {
         this.itemTool = itemTool;
         this.itemTip = itemTip;
-        this.itemNum = String.valueOf(itemNum);
+        this.itemNum = itemNum;
     }
 }

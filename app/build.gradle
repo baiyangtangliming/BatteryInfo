@@ -10,8 +10,8 @@ android {
         applicationId "com.liming.batteryinfo"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     // 这个是解决lint报错的代码
@@ -22,13 +22,9 @@ android {
     signingConfigs {
         myConfig {
             storeFile keyfile
-            keyAlias  properties.getProperty("keystore.alias")
-            storePassword  properties.getProperty("keystore.alias_password")
-            keyPassword properties.getProperty("keystore.password")
-/*            storeFile keyfile
             keyAlias properties.getProperty("keystore.alias")
             storePassword properties.getProperty("keystore.alias_password")
-            keyPassword properties.getProperty("keystore.password")*/
+            keyPassword properties.getProperty("keystore.password")
             println("====== signingConfigs.release ======")
         }
 
