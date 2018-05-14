@@ -10,8 +10,8 @@
 
     <com.liming.batteryinfo.view.BatteryView
         android:id="@+id/batteryview"
-        android:layout_width="160dp"
-        android:layout_height="90dp"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
         android:background="#fff"
         android:layout_gravity="center"

@@ -116,23 +116,24 @@ public class MainActivity extends BaseActivity {
                                     .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
-                                            if (RootCmd.execRootCmdSilent("rm /data/system/batterystats.bin\nreboot\n")!=-1){
+                                            if (RootCmd.execRootCmdSilent("rm -f /data/system/batterystats-checkin.bin\nrm -f /data/system/batterystats-daily.xml\nrm -f /data/system/batterystats.bin\nreboot\n")!=-1){
                                                 Toast.makeText(MainActivity.this, "清空电池信息成功", Toast.LENGTH_SHORT).show();
                                             }else {
                                                 Toast.makeText(MainActivity.this, "清空电池信息失败", Toast.LENGTH_SHORT).show();
                                             }
 
                                         }
-                                    }).setNegativeButton("返回",null).show();//在按键响应事件中显示此对话框
+                                    }).setNegativeButton("取消",null).show();//在按键响应事件中显示此对话框
                         }else {
-                            new AlertDialog.Builder(MainActivity.this).setTitle("温馨提示")//设置对话框标题
-                                    .setMessage("请将电量冲至100%再执行操作")//设置显示的内容
-                                    .setPositiveButton("确定",null).show();//在按键响应事件中显示此对话框
+                            Toast.makeText(MainActivity.this,"请将电量充满在执行操作",Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case 1:
                         Intent intent=new Intent(MainActivity.this,BatterySettingActivity.class);
                         startActivity(intent);
+                        break;
+                    case 2:
+                        startActivity(new Intent(MainActivity.this,MaxCurrentSettingActivity.class));
                         break;
                     default:
                         Toast.makeText(getBaseContext(),listItemArrayList.get(position).getItemTool().toString()+"功能加紧开发中",Toast.LENGTH_SHORT).show();
@@ -157,7 +158,7 @@ public class MainActivity extends BaseActivity {
         voltage.setText(SystemInfo.getVoltage()+"mV");
         batteryviewtip.setText(quantity+"%");
         battery_current.setText(current+("mA"));
-        battery_currenttip.setText(((current>0) ? "正在充电" : "正在放电")+" 温度 "+tempstr+"℃");
+        battery_currenttip.setText(((current>0) ? "正在充电" : "正在放电")+" 循环充电"+SystemInfo.getCycle_count()+"次");
         if (quantity!=100&&current>0){
             if (power>=100){power=0;}
             verticalBattery.setPower(power+=5);

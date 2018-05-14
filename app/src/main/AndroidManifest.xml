@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".ui.BatterySettingActivity"
             android:theme="@style/DialogTheme"></activity>
+        <activity android:name=".ui.MaxCurrentSettingActivity"
+            android:theme="@style/DialogTheme"></activity>
     </application>
 
 </manifest>
