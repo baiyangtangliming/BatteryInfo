@@ -20,7 +20,7 @@ public final class RootCmd {
      */
     public static boolean haveRoot() {
         if (!mHaveRoot) {
-            int ret = execRootCmdSilent("echo test"); // 通过执行测试命令来检测
+            int ret = execRootCmdSilent("echo test",true); // 通过执行测试命令来检测
             if (ret != -1) {
                 Log.i(TAG, "have root!");
                 mHaveRoot = true;
@@ -36,13 +36,13 @@ public final class RootCmd {
     /**
      * 执行命令并且输出结果
      */
-    public static String execRootCmd(String cmd) {
+    public static String execRootCmd(String cmd,boolean root) {
         String result = "";
         DataOutputStream dos = null;
         DataInputStream dis = null;
 
         try {
-            Process p = Runtime.getRuntime().exec("su");// 经过Root处理的android系统即有su命令
+            Process p = Runtime.getRuntime().exec(root?"su":"sh");// 经过Root处理的android系统即有su命令
             dos = new DataOutputStream(p.getOutputStream());
             dis = new DataInputStream(p.getInputStream());
 
@@ -81,12 +81,12 @@ public final class RootCmd {
     /**
      * 执行命令但不关注结果输出
      */
-    public static int execRootCmdSilent(String cmd) {
+    public static int execRootCmdSilent(String cmd,boolean root) {
         int result = -1;
         DataOutputStream dos = null;
 
         try {
-            Process p = Runtime.getRuntime().exec("su");
+            Process p = Runtime.getRuntime().exec(root?"su":"sh");
             dos = new DataOutputStream(p.getOutputStream());
 
             Log.i(TAG, cmd);

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">电箱</string>
+    <string name="versoin">当前版本：%1$s</string>
 </resources>

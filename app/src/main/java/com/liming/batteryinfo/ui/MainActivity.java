@@ -15,6 +15,8 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
 import java.util.ArrayList;
 
 import com.liming.batteryinfo.R;
@@ -52,6 +54,8 @@ public class MainActivity extends BaseActivity {
     GridView gridView;
     @ViewInject(R.id.batteryview)
     private BatteryView verticalBattery;
+    @ViewInject(R.id.abouttip)
+    TextView abouttip;
     ToolAdapter toolAdapter;
     public static int color;
     private int []colors={
@@ -96,6 +100,12 @@ public class MainActivity extends BaseActivity {
         batteryviewtip.setTypeface(mtypeface);
         temp.setTypeface(mtypeface);
         voltage.setTypeface(mtypeface);
+        abouttip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,AboutActivity.class));
+            }
+        });
 
         listItemArrayList.add(new ToolBean("电池健康程度（仅供参考）","数据不准确？点击进行电量校准",SystemInfo.getHealthy()+"%"));
         listItemArrayList.add(new ToolBean("电池电量百分比","点击可修改电量百分比及充电状态",SystemInfo.getQuantity(this)+"%"));
@@ -116,7 +126,7 @@ public class MainActivity extends BaseActivity {
                                     .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
-                                            if (RootCmd.execRootCmdSilent("rm -f /data/system/batterystats-checkin.bin\nrm -f /data/system/batterystats-daily.xml\nrm -f /data/system/batterystats.bin\nreboot\n")!=-1){
+                                            if (RootCmd.execRootCmdSilent("rm -f /data/system/batterystats-checkin.bin\nrm -f /data/system/batterystats-daily.xml\nrm -f /data/system/batterystats.bin\nreboot\n",true)!=-1){
                                                 Toast.makeText(MainActivity.this, "清空电池信息成功", Toast.LENGTH_SHORT).show();
                                             }else {
                                                 Toast.makeText(MainActivity.this, "清空电池信息失败", Toast.LENGTH_SHORT).show();
@@ -148,7 +158,7 @@ public class MainActivity extends BaseActivity {
     private static int power;
     private void initViews() {
         int  current=SystemInfo.getCurrent();
-        Double tempstr=SystemInfo.getTemp(this);
+        Double tempstr=SystemInfo.getTemp();
         int quantity=SystemInfo.getQuantity(this);
         device_name.setText(SystemInfo.getBrand()+" "+SystemInfo.getModel());
         device_nametip.setText(SystemInfo.getDevice()+" Android"+SystemInfo.getRelease()+" SDK"+SystemInfo.getSdk());

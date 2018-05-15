@@ -42,12 +42,5 @@ public class WelcomeActivity extends BaseActivity {
         setContentView(R.layout.activity_welcome);
         r1_splash.setBackgroundColor(getResources().getColor(R.color.config_color_white));
         this.mTimeHandler.sendEmptyMessage(2);
-        int perm = this.checkCallingOrSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (!(perm == PackageManager.PERMISSION_GRANTED)){
-            if (Build.VERSION.SDK_INT >=23) {
-                this.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-            }
-        }
-
     }
 }

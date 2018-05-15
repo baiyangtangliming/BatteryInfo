@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.liming.batteryinfo">
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,10 +22,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.BatterySettingActivity"
-            android:theme="@style/DialogTheme"></activity>
-        <activity android:name=".ui.MaxCurrentSettingActivity"
-            android:theme="@style/DialogTheme"></activity>
+        <activity
+            android:name=".ui.BatterySettingActivity"
+            android:theme="@style/DialogTheme" />
+        <activity
+            android:name=".ui.MaxCurrentSettingActivity"
+            android:theme="@style/DialogTheme" />
+        <activity android:name=".ui.AboutActivity"></activity>
     </application>
 
 </manifest>

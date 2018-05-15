@@ -20,7 +20,7 @@ public class BatteryUtil {
                         "echo 480 > /sys/class/power_supply/bms/temp_warm;" +
                         "chmod 644 /sys/class/power_supply/battery/constant_charge_current_max;" +
                         "echo " + limit + "000 > /sys/class/power_supply/battery/constant_charge_current_max;";
-        return RootCmd.execRootCmdSilent(cmd)!=-1;
+        return RootCmd.execRootCmdSilent(cmd,true)!=-1;
     }
     /**
      * 禁用充电
@@ -31,7 +31,7 @@ public class BatteryUtil {
             return false;
         } else {
             String cmd = "if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; then echo 0 > /sys/class/power_supply/battery/battery_charging_enabled; else echo 1 > /sys/class/power_supply/battery/input_suspend; fi;setprop vtools.bp 1;\\n";
-            return RootCmd.execRootCmdSilent(cmd)!=-1;
+            return RootCmd.execRootCmdSilent(cmd,true)!=-1;
         }
     }
 
@@ -44,7 +44,7 @@ public class BatteryUtil {
             return false;
         } else {
             String cmd = "if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; then echo 0 > /sys/class/power_supply/battery/battery_charging_enabled; else echo 1 > /sys/class/power_supply/battery/input_suspend; fi;setprop vtools.bp 1;\\n";
-            return RootCmd.execRootCmdSilent(cmd)!=-1;
+            return RootCmd.execRootCmdSilent(cmd,true)!=-1;
         }
     }
 }
