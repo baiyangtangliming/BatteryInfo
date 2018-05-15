@@ -260,7 +260,7 @@ final public class SystemInfo {
 
     /**
      * SDK版本
-     * @return 实际容量
+     * @return
      */
     public static String getSdk() {
         return VERSION.SDK;
@@ -271,7 +271,14 @@ final public class SystemInfo {
      * @return 实际容量
      */
     public static int getCharge_full() {
-        return parseInt(readFile(BATTERY_PATH+"charge_full")) / 1000;
+        String path=BATTERY_PATH+"charge_full";
+        Integer num=0;
+        num=parseInt(readFile(path))/1000;
+        if (new File(path).exists()&&num==0){
+            String string=RootCmd.execRootCmd("cat "+path+"\n");
+            num=Integer.valueOf(string)/1000;
+        }
+        return num;
     }
 
     /**
@@ -279,7 +286,14 @@ final public class SystemInfo {
      * @return
      */
     public static int getCharge_full_design() {
-        return (parseInt(readFile(BATTERY_PATH+"charge_full_design")) / 1000);
+        String path=BATTERY_PATH+"charge_full_design";
+        Integer num=0;
+        num=parseInt(readFile(path))/1000;
+        if (new File(path).exists()&num==0){
+            String string=RootCmd.execRootCmd("cat "+path+"\n");
+            num=Integer.valueOf(string)/1000;
+        }
+        return num;
     }
 
     /**
@@ -287,7 +301,14 @@ final public class SystemInfo {
      * @return
      */
     public static int getConstant_charge_current_max() {
-        return parseInt(readFile("/sys/class/power_supply/battery/constant_charge_current_max")) / 1000;
+        String path="/sys/class/power_supply/battery/constant_charge_current_max";
+        Integer charge_current_max=0;
+        charge_current_max=parseInt(readFile(path)) / 1000;
+        if (new File(path).exists()&&charge_current_max==0){
+            String string=RootCmd.execRootCmd("cat "+path+"\n");
+            charge_current_max=Integer.valueOf(string)/1000;
+        }
+        return charge_current_max;
     }
 
 
@@ -296,7 +317,14 @@ final public class SystemInfo {
      * @return
      */
     public static int getCycle_count() {
-        return parseInt(readFile(BATTERY_PATH+"cycle_count"));
+        String path=BATTERY_PATH+"cycle_count";
+        Integer num=0;
+        num=parseInt(readFile(path));
+        if (new File(path).exists()&&num==0){
+            String string=RootCmd.execRootCmd("cat "+path+"\n");
+            num=Integer.valueOf(string);
+        }
+        return num;
     }
 
 
@@ -314,8 +342,14 @@ final public class SystemInfo {
      * @return
      */
     public static int getCurrent() {
-        String current_now=readFile(BATTERY_PATH+"current_now");
-        return current_now.contains("-")?parseInt(current_now)/1000:0-parseInt(current_now)/1000;
+        String path=BATTERY_PATH+"current_now";
+        String current_now=readFile(path);
+        Integer num=current_now.contains("-")?parseInt(current_now)/1000:0-parseInt(current_now)/1000;;
+        if (num==0&&new File(path).exists()){
+            current_now=RootCmd.execRootCmd("cat "+path+"\n");
+            num=current_now.contains("-")?parseInt(current_now)/1000:0-parseInt(current_now)/1000;
+        }
+        return num;
     }
     /**
      * 电量
@@ -331,8 +365,16 @@ final public class SystemInfo {
      * 温度
      * @return
      */
-    public static Double getTemp() {
-        return (Double.parseDouble(readFile(BATTERY_PATH+"temp")) / 10);
+    public static Double getTemp(Context context) {
+
+        String path=BATTERY_PATH+"temp";
+        Double num=0.0;
+        num=Double.valueOf(readFile(path))/10;
+        if (new File(path).exists()&&num==0){
+            String string=RootCmd.execRootCmd("cat "+path+"\n");
+            num=Double.valueOf(string)/10;
+        }
+        return num;
     }
 
 
@@ -341,7 +383,14 @@ final public class SystemInfo {
      * @return
      */
     public static int getVoltage() {
-        return parseInt(readFile(BATTERY_PATH+"voltage_now")) / 1000;
+        String path=BATTERY_PATH+"voltage_now";
+        Integer num=0;
+        num=parseInt(readFile(path))/1000;
+        if (new File(path).exists()&&num==0){
+            String string=RootCmd.execRootCmd("cat "+path+"\n");
+            num=Integer.valueOf(string)/1000;
+        }
+        return num;
     }
 
     /**
@@ -451,7 +500,8 @@ final public class SystemInfo {
             fileInputStream.read(bArr);
             fileInputStream.close();
             content = new String(bArr, "utf-8");
-        } catch (IOException e) {System.out.println("此设备不支持"+path+"信息读取");}
+        } catch (IOException e) {System.out.println("此设备不支持"+path+"信息读取");
+        e.printStackTrace();}
         return content;
     }
 

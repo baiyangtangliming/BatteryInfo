@@ -148,7 +148,7 @@ public class MainActivity extends BaseActivity {
     private static int power;
     private void initViews() {
         int  current=SystemInfo.getCurrent();
-        Double tempstr=SystemInfo.getTemp();
+        Double tempstr=SystemInfo.getTemp(this);
         int quantity=SystemInfo.getQuantity(this);
         device_name.setText(SystemInfo.getBrand()+" "+SystemInfo.getModel());
         device_nametip.setText(SystemInfo.getDevice()+" Android"+SystemInfo.getRelease()+" SDK"+SystemInfo.getSdk());
