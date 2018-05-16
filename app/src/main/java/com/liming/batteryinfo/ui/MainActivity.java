@@ -132,7 +132,7 @@ public class MainActivity extends BaseActivity {
         listItemArrayList.add(new ToolBean("电池健康程度（仅供参考）","数据不准确？点击进行电量校准",SystemInfo.getHealthy()+"%"));
         listItemArrayList.add(new ToolBean("电池电量百分比","点击可修改电量百分比及充电状态",SystemInfo.getQuantity(this)+"%"));
         listItemArrayList.add(new ToolBean("电池充电最大电流","点击可突破限制",SystemInfo.getConstant_charge_current_max()+"mA"));
-        listItemArrayList.add(new ToolBean("定量停冲(实验性)","电量冲指指定百分百禁止充电",stopdo+"%"));
+        listItemArrayList.add(new ToolBean("定量停冲(实验性)","电量冲至指定电量禁止充电",stopdo+"%"));
         //生成适配器的ImageItem 与动态数组的元素相对应
         toolAdapter = new ToolAdapter(this,listItemArrayList);
         //添加并且显示
