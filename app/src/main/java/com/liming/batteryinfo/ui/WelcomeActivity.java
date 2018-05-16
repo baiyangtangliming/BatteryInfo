@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import com.liming.batteryinfo.R;
+import com.liming.batteryinfo.utils.RootCmd;
 import com.liming.batteryinfo.utils.ViewInject;
 import com.liming.batteryinfo.view.BatteryView;
 
@@ -42,5 +43,11 @@ public class WelcomeActivity extends BaseActivity {
         setContentView(R.layout.activity_welcome);
         r1_splash.setBackgroundColor(getResources().getColor(R.color.config_color_white));
         this.mTimeHandler.sendEmptyMessage(2);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RootCmd.haveRoot();
+            }
+        }).start();
     }
 }

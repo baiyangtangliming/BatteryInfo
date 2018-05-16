@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.liming.batteryinfo.R;
 import com.liming.batteryinfo.utils.BatteryUtil;
 import com.liming.batteryinfo.utils.RootCmd;
+import com.liming.batteryinfo.utils.SystemInfo;
 import com.liming.batteryinfo.utils.ViewInject;
 
 public class MaxCurrentSettingActivity extends BaseActivity implements View.OnClickListener {
@@ -60,7 +61,7 @@ public class MaxCurrentSettingActivity extends BaseActivity implements View.OnCl
         setContentView(R.layout.activity_current_setting);
         this.btn_reset.setOnClickListener(this);
         this.btn_submit.setOnClickListener(this);
-
+        battery_text.setText(String.valueOf(SystemInfo.getConstant_charge_current_max()));
     }
 
 }

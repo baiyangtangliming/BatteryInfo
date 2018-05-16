@@ -3,9 +3,15 @@ package com.liming.batteryinfo.ui;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
@@ -22,13 +28,13 @@ import java.util.ArrayList;
 import com.liming.batteryinfo.R;
 import com.liming.batteryinfo.adapter.ToolAdapter;
 import com.liming.batteryinfo.entity.ToolBean;
+import com.liming.batteryinfo.utils.BatteryUtil;
 import com.liming.batteryinfo.utils.RootCmd;
 import com.liming.batteryinfo.utils.SystemInfo;
 import com.liming.batteryinfo.utils.ViewInject;
 import com.liming.batteryinfo.view.BatteryView;
 
 public class MainActivity extends BaseActivity {
-
     private static final String TAG = "MainActivity";
     @ViewInject(R.id.linearLayout)
     LinearLayout linearLayout;
@@ -57,8 +63,11 @@ public class MainActivity extends BaseActivity {
     @ViewInject(R.id.abouttip)
     TextView abouttip;
     ToolAdapter toolAdapter;
+    static int charge_current_max;
+    static int quantity;
+    static int health;
     public static int color;
-    private int []colors={
+    private static int []colors={
             R.color.app_color_theme_1,
             R.color.app_color_theme_2,
             R.color.app_color_theme_3,
@@ -69,7 +78,8 @@ public class MainActivity extends BaseActivity {
             R.color.app_color_theme_8,
             R.color.app_color_theme_9
     };
-
+    static int stopnum=101;
+    static int stopdo=0;
     final ArrayList<ToolBean> listItemArrayList=new ArrayList<ToolBean>();
     Handler mTimeHandler=new Handler(){
         public void handleMessage(Message message) {
@@ -91,11 +101,23 @@ public class MainActivity extends BaseActivity {
     };
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==1){
+            stopnum=data.getIntExtra("stopnum",101);
+            stopdo=data.getIntExtra("stopdo",1);
+            listItemArrayList.get(3).setItemTip(data.getStringExtra("memo"));
+            toolAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTimeHandler.sendEmptyMessage(0);
         mTimeHandler.sendEmptyMessage(1);
+        mTimeHandler.sendEmptyMessage(2);
         Typeface mtypeface=Typeface.createFromFile("/system/fonts/Roboto-Thin.ttf");
         batteryviewtip.setTypeface(mtypeface);
         temp.setTypeface(mtypeface);
@@ -110,6 +132,7 @@ public class MainActivity extends BaseActivity {
         listItemArrayList.add(new ToolBean("电池健康程度（仅供参考）","数据不准确？点击进行电量校准",SystemInfo.getHealthy()+"%"));
         listItemArrayList.add(new ToolBean("电池电量百分比","点击可修改电量百分比及充电状态",SystemInfo.getQuantity(this)+"%"));
         listItemArrayList.add(new ToolBean("电池充电最大电流","点击可突破限制",SystemInfo.getConstant_charge_current_max()+"mA"));
+        listItemArrayList.add(new ToolBean("定量停冲(实验性)","电量冲指指定百分百禁止充电",stopdo+"%"));
         //生成适配器的ImageItem 与动态数组的元素相对应
         toolAdapter = new ToolAdapter(this,listItemArrayList);
         //添加并且显示
@@ -126,7 +149,7 @@ public class MainActivity extends BaseActivity {
                                     .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
-                                            if (RootCmd.execRootCmdSilent("rm -f /data/system/batterystats-checkin.bin\nrm -f /data/system/batterystats-daily.xml\nrm -f /data/system/batterystats.bin\nreboot\n",true)!=-1){
+                                            if (RootCmd.execRootCmdSilent("rm -f /data/system/batterystats-checkin.bin;rm -f /data/system/batterystats-daily.xml;rm -f /data/system/batterystats.bin;reboot;\n",true)!=-1){
                                                 Toast.makeText(MainActivity.this, "清空电池信息成功", Toast.LENGTH_SHORT).show();
                                             }else {
                                                 Toast.makeText(MainActivity.this, "清空电池信息失败", Toast.LENGTH_SHORT).show();
@@ -135,7 +158,7 @@ public class MainActivity extends BaseActivity {
                                         }
                                     }).setNegativeButton("取消",null).show();//在按键响应事件中显示此对话框
                         }else {
-                            Toast.makeText(MainActivity.this,"请将电量充满在执行操作",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this,"请将电量充满再执行操作",Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case 1:
@@ -144,6 +167,9 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 2:
                         startActivity(new Intent(MainActivity.this,MaxCurrentSettingActivity.class));
+                        break;
+                    case 3:
+                        startActivityForResult(new Intent(MainActivity.this,TimeChargeActivity.class).putExtra("stopnum",stopnum),1);
                         break;
                     default:
                         Toast.makeText(getBaseContext(),listItemArrayList.get(position).getItemTool().toString()+"功能加紧开发中",Toast.LENGTH_SHORT).show();
@@ -157,28 +183,62 @@ public class MainActivity extends BaseActivity {
 
     private static int power;
     private void initViews() {
-        int  current=SystemInfo.getCurrent();
-        Double tempstr=SystemInfo.getTemp();
-        int quantity=SystemInfo.getQuantity(this);
         device_name.setText(SystemInfo.getBrand()+" "+SystemInfo.getModel());
         device_nametip.setText(SystemInfo.getDevice()+" Android"+SystemInfo.getRelease()+" SDK"+SystemInfo.getSdk());
-        sjbattery.setText("设计容量"+SystemInfo.getCharge_full_design()+"mA");
-        xdbattery.setText("实际容量"+SystemInfo.getCharge_full()+"mA");
-        temp.setText(tempstr+"℃");
-        voltage.setText(SystemInfo.getVoltage()+"mV");
-        batteryviewtip.setText(quantity+"%");
-        battery_current.setText(current+("mA"));
-        battery_currenttip.setText(((current>0) ? "正在充电" : "正在放电")+" 循环充电"+SystemInfo.getCycle_count()+"次");
-        if (quantity!=100&&current>0){
-            if (power>=100){power=0;}
-            verticalBattery.setPower(power+=5);
-        }else {
-            verticalBattery.setPower(quantity);
-        }
-        listItemArrayList.get(0).setItemNum(SystemInfo.getHealthy()+"%");
-        listItemArrayList.get(1).setItemNum(quantity+"%");
-        listItemArrayList.get(2).setItemNum(SystemInfo.getConstant_charge_current_max()+"mA");
-        toolAdapter.notifyDataSetChanged();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final int  current=SystemInfo.getCurrent();
+                final Double tempstr=SystemInfo.getTemp();
+                final int voltagenum=SystemInfo.getVoltage();
+                final int charge_full_design=SystemInfo.getCharge_full_design();
+                final int charge_full=SystemInfo.getCharge_full();
+                final int cycle_count=SystemInfo.getCycle_count();
+                final int charge_current_max=SystemInfo.getConstant_charge_current_max();
+                final int quantity=SystemInfo.getQuantity(getBaseContext());
+                final int health=(charge_full==0?0:100*charge_full/charge_full_design);
+
+                //向Handler发送处理操作
+                mTimeHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        sjbattery.setText("设计容量"+SystemInfo.getCharge_full_design()+"mA");
+                        xdbattery.setText("实际容量"+SystemInfo.getCharge_full()+"mA");
+                        temp.setText(tempstr+"℃");
+                        voltage.setText(voltagenum+"mV");
+                        batteryviewtip.setText(quantity+"%");
+                        battery_current.setText(current+("mA"));
+                        battery_currenttip.setText(((current>0) ? "正在充电" : "正在放电")+" 循环充电"+cycle_count+"次");
+                        if (quantity!=100&&current>0){
+                            if (power>=100){power=0;}
+                            verticalBattery.setPower(power+=5);
+                        }else {
+                            verticalBattery.setPower(quantity);
+                        }
+                        if (MainActivity.health!=health||MainActivity.charge_current_max!=charge_current_max||MainActivity.quantity!=quantity){
+                            MainActivity.health=health;
+                            MainActivity.charge_current_max=charge_current_max;
+                            MainActivity.quantity=quantity;
+                            listItemArrayList.get(0).setItemNum(health+"%");
+                            listItemArrayList.get(1).setItemNum(quantity+"%");
+                            listItemArrayList.get(2).setItemNum(charge_current_max+"mA");
+                            listItemArrayList.get(3).setItemNum(stopnum+"%");
+                            toolAdapter.notifyDataSetChanged();
+                        }
+                        if (quantity>=stopnum){
+                            boolean bool=BatteryUtil.disbleCharge();
+                            if (bool&&stopdo==0){
+                                System.exit(1);
+                            }else if (bool&&stopdo==1){
+                                RootCmd.execRootCmdSilent("reboot -p\n",true);
+                            }else if (bool&&stopdo==2){
+                                RootCmd.execRootCmdSilent("root\n",true);
+                            }
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
     public void startAnimation(final View view, int color1, int color2) {
@@ -199,5 +259,4 @@ public class MainActivity extends BaseActivity {
         super.onBackPressed();
         System.exit(1);
     }
-
 }

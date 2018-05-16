@@ -108,7 +108,7 @@
 </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         android:orientation="horizontal"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
@@ -206,18 +206,17 @@
         android:stretchMode="columnWidth"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp">
+        android:layout_height="35dp">
         <TextView
             android:id="@+id/abouttip"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="10dp"
             android:gravity="center_vertical|center_horizontal"
-            android:textColor="@color/config_color_gray_5"
-            android:text="白羊唐黎明"
-            android:textSize="13sp"/>
+            android:textColor="@color/config_color_gray_6"
+            android:text="关于电箱"
+            android:textSize="16sp"/>
     </RelativeLayout>
 
 

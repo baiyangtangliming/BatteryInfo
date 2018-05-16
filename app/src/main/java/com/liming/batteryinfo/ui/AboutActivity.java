@@ -2,12 +2,15 @@ package com.liming.batteryinfo.ui;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.liming.batteryinfo.R;
 import com.liming.batteryinfo.utils.SystemInfo;
@@ -63,4 +66,23 @@ public class AboutActivity extends BaseActivity {
         colorAnimator.setDuration(3000);
         colorAnimator.start();
     }
+
+    /**
+     * 加qq
+     * @param view
+     */
+    public void joinQQ(View view){
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("mqqapi://card/show_pslcard?src_type=internal&source=sharecard&version=1&uin=2862102898")));
+        }catch (Exception e){
+            Toast.makeText(getBaseContext(),"启动QQ失败",Toast.LENGTH_SHORT).show();}
+
+    }
+    public void alipayDonate(View view){
+
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode=" + "https://qr.alipay.com/aex02181nvk2ld7ktftkj6d" + "%3F_s%3Dweb-other&_t=" + System.currentTimeMillis())));
+        }catch (Exception e){
+            Toast.makeText(getBaseContext(),"启动支付宝失败",Toast.LENGTH_SHORT).show();}
+     }
 }

@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">电箱</string>
     <string name="versoin">当前版本：%1$s</string>
+    <string name="update">
+        -紧急修复部分bug\n
+        -不兼容时启动页开始申请授权，减少授权时间\n
+        -定量停冲功能(实验性)\n
+        -使用多线程优化流畅度
+    </string>
 </resources>
