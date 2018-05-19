@@ -3,18 +3,13 @@ package com.liming.batteryinfo.ui;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -86,7 +81,7 @@ public class MainActivity extends BaseActivity {
             super.handleMessage(message);
             if (message.what == 0) {
                 initViews();
-                sendEmptyMessageDelayed(0,1000);
+                sendEmptyMessageDelayed(0,1500);
             }
             if (message.what == 1) {
                 if (color>=colors.length-1){
@@ -107,6 +102,7 @@ public class MainActivity extends BaseActivity {
             stopnum=data.getIntExtra("stopnum",101);
             stopdo=data.getIntExtra("stopdo",1);
             listItemArrayList.get(3).setItemTip(data.getStringExtra("memo"));
+            listItemArrayList.get(3).setItemNum(String.valueOf(stopnum)+"%");
             toolAdapter.notifyDataSetChanged();
         }
     }
@@ -132,7 +128,7 @@ public class MainActivity extends BaseActivity {
         listItemArrayList.add(new ToolBean("电池健康程度（仅供参考）","数据不准确？点击进行电量校准",SystemInfo.getHealthy()+"%"));
         listItemArrayList.add(new ToolBean("电池电量百分比","点击可修改电量百分比及充电状态",SystemInfo.getQuantity(this)+"%"));
         listItemArrayList.add(new ToolBean("电池充电最大电流","点击可突破限制",SystemInfo.getConstant_charge_current_max()+"mA"));
-        listItemArrayList.add(new ToolBean("定量停冲(实验性)","电量冲至指定电量禁止充电",stopdo+"%"));
+        listItemArrayList.add(new ToolBean("定量停冲(实验性)","电量冲至指定电量禁止充电",stopnum+"%"));
         //生成适配器的ImageItem 与动态数组的元素相对应
         toolAdapter = new ToolAdapter(this,listItemArrayList);
         //添加并且显示
@@ -188,6 +184,7 @@ public class MainActivity extends BaseActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                long start=System.currentTimeMillis();
                 final int  current=SystemInfo.getCurrent();
                 final Double tempstr=SystemInfo.getTemp();
                 final int voltagenum=SystemInfo.getVoltage();
@@ -197,11 +194,11 @@ public class MainActivity extends BaseActivity {
                 final int charge_current_max=SystemInfo.getConstant_charge_current_max();
                 final int quantity=SystemInfo.getQuantity(getBaseContext());
                 final int health=(charge_full==0?0:100*charge_full/charge_full_design);
-
-                //向Handler发送处理操作
+              //向Handler发送处理操作
                 mTimeHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        long start2=System.currentTimeMillis();
                         sjbattery.setText("设计容量"+SystemInfo.getCharge_full_design()+"mA");
                         xdbattery.setText("实际容量"+SystemInfo.getCharge_full()+"mA");
                         temp.setText(tempstr+"℃");
@@ -224,6 +221,7 @@ public class MainActivity extends BaseActivity {
                             listItemArrayList.get(2).setItemNum(charge_current_max+"mA");
                             listItemArrayList.get(3).setItemNum(stopnum+"%");
                             toolAdapter.notifyDataSetChanged();
+                            Log.d(TAG, "---------------run: 正在跟新列表");
                         }
                         if (quantity>=stopnum){
                             boolean bool=BatteryUtil.disbleCharge();
@@ -253,7 +251,6 @@ public class MainActivity extends BaseActivity {
         colorAnimator.setDuration(3000);
         colorAnimator.start();
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();

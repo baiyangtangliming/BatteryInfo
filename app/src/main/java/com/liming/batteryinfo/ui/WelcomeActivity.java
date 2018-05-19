@@ -25,9 +25,7 @@ public class WelcomeActivity extends BaseActivity {
         public void handleMessage(Message message) {
             if (message.what==2){
                 if (power>=100){
-                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    startMain();
                 }else {
                     batteryView.setPower(power+=1);
                     sendEmptyMessageDelayed(2,  30);
@@ -42,12 +40,22 @@ public class WelcomeActivity extends BaseActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_welcome);
         r1_splash.setBackgroundColor(getResources().getColor(R.color.config_color_white));
-        this.mTimeHandler.sendEmptyMessage(2);
+        if ((Boolean) getParam("splash",false)){
+            startMain();
+        }else {
+            this.mTimeHandler.sendEmptyMessage(2);
+        }
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 RootCmd.haveRoot();
             }
         }).start();
+    }
+    public void startMain(){
+        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -26,7 +26,7 @@ public class TimeChargeActivity extends BaseActivity implements View.OnClickList
     int result;
     @ViewInject(R.id.tip)
     TextView tip;
-    String []dothings=new String[]{"充电停止后关闭软件","充电停止后关闭手机","充电停止后重启手机", "充电停止后不做操作"};
+    public static String []dothings=new String[]{"充电停止后关闭软件","充电停止后关闭手机","充电停止后重启手机", "充电停止后不做操作"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

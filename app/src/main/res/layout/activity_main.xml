@@ -206,7 +206,8 @@
         android:stretchMode="columnWidth"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp">
+        android:background="@color/config_color_white"
+        android:layout_height="30dp">
         <TextView
             android:id="@+id/abouttip"
             android:layout_width="match_parent"
@@ -216,7 +217,7 @@
             android:gravity="center_vertical|center_horizontal"
             android:textColor="@color/config_color_gray_6"
             android:text="关于电箱"
-            android:textSize="16sp"/>
+            android:textSize="14sp"/>
     </RelativeLayout>
 
 

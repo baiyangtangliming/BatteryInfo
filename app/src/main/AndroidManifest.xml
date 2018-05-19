@@ -32,7 +32,8 @@
         <activity
             android:name=".ui.MaxCurrentSettingActivity"
             android:theme="@style/DialogTheme" />
-        <activity android:name=".ui.AboutActivity" />
+        <activity android:name=".ui.AboutActivity"
+            android:launchMode="singleTop" />
         <activity android:name=".ui.TimeChargeActivity"
             android:theme="@style/DialogTheme"></activity>
     </application>

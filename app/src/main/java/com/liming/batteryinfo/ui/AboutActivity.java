@@ -2,17 +2,22 @@ package com.liming.batteryinfo.ui;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.liming.batteryinfo.R;
+import com.liming.batteryinfo.utils.SharedPreferencesUtils;
 import com.liming.batteryinfo.utils.SystemInfo;
 import com.liming.batteryinfo.utils.ViewInject;
 
@@ -22,7 +27,10 @@ public class AboutActivity extends BaseActivity {
     LinearLayout linearLayout;
     @ViewInject(R.id.versoin)
     TextView versoin;
+    @ViewInject(R.id.splashcheckbox)
+    CheckBox splashcheckbox;
     public static int color;
+    private int send;
     private int []colors={
             R.color.app_color_theme_4,
             R.color.app_color_theme_2,
@@ -43,7 +51,9 @@ public class AboutActivity extends BaseActivity {
                 }else {
                     startAnimation(linearLayout,colors[color],colors[++color]);
                 }
-                sendEmptyMessageDelayed(1,3000);
+                if (send==0){
+                    sendEmptyMessageDelayed(1,3100);
+                }
             }
         }
     };
@@ -53,6 +63,7 @@ public class AboutActivity extends BaseActivity {
         setContentView(R.layout.activity_about);
         mTimeHandler.sendEmptyMessage(1);
         versoin.setText(String.format(getResources().getString(R.string.versoin), SystemInfo.getVersionName(this)));
+        splashcheckbox.setChecked((Boolean) getParam("splash",false));
     }
     public void startAnimation(final View view, int color1, int color2) {
         //创建动画,这里的关键就是使用ArgbEvaluator, 后面2个参数就是 开始的颜色,和结束的颜色.
@@ -84,5 +95,17 @@ public class AboutActivity extends BaseActivity {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode=" + "https://qr.alipay.com/aex02181nvk2ld7ktftkj6d" + "%3F_s%3Dweb-other&_t=" + System.currentTimeMillis())));
         }catch (Exception e){
             Toast.makeText(getBaseContext(),"启动支付宝失败",Toast.LENGTH_SHORT).show();}
-     }
+    }
+    public void showSplash(View view){
+        boolean checked=(Boolean) getParam("splash",false);
+        setParam("splash",!checked);
+        splashcheckbox.setChecked(!checked);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        linearLayout.clearAnimation();
+        send=1;
+    }
 }
