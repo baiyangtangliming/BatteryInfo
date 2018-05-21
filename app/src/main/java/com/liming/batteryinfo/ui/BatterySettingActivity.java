@@ -38,7 +38,7 @@ public class BatterySettingActivity extends BaseActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_resert:
-                RootCmd.execRootCmdSilent("dumpsys battery reset\ndumpsys batterymanager reset\n",true);
+                RootCmd.execRootCmdSilent("dumpsys battery reset\ndumpsys batterymanager reset\n");
                 if (this.result != -1) {
                     Toast.makeText(this, "重置成功", Toast.LENGTH_SHORT).show();
                     return;
@@ -80,7 +80,7 @@ public class BatterySettingActivity extends BaseActivity implements View.OnClick
                     shell.append("dumpsys battery set level " + Integer.parseInt(obj) + "\n");
                     shell.append("dumpsys batterymanager set level " + Integer.parseInt(obj) + "\n");
                 }
-                this.result = RootCmd.execRootCmdSilent(shell.toString(),true);
+                this.result = RootCmd.execRootCmdSilent(shell.toString());
                 if (this.result != -1) {
                     Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
                     return;

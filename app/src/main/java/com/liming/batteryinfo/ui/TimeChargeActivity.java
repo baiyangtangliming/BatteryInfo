@@ -42,7 +42,7 @@ public class TimeChargeActivity extends BaseActivity implements View.OnClickList
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.btn_resert:
-                if (RootCmd.execRootCmdSilent("if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; then echo 1 > /sys/class/power_supply/battery/battery_charging_enabled; else echo 0 > /sys/class/power_supply/battery/input_suspend; fi;setprop vtools.bp 0;\n",true)!=-1){
+                if (RootCmd.execRootCmdSilent("if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; then echo 1 > /sys/class/power_supply/battery/battery_charging_enabled; else echo 0 > /sys/class/power_supply/battery/input_suspend; fi;setprop vtools.bp 0;\n")!=-1){
                     intent.putExtra("stopnum",101);
                     intent.putExtra("stopdo",0);
                     intent.putExtra("memo",dothings[dothings.length-1]);
