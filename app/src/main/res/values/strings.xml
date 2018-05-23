@@ -2,8 +2,7 @@
     <string name="app_name">电箱</string>
     <string name="versoin">当前版本：%1$s</string>
     <string name="update">
-        -修复root模式下读取卡顿问题\n
-        -修复一个会导致闪退的问题\n
-        -兼容更多机型
+        -界面细节修整
+        -代码整理缩减体积
     </string>
 </resources>

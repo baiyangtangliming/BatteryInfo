@@ -1,5 +1,7 @@
 package com.liming.batteryinfo.ui;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -140,5 +142,18 @@ public class BaseActivity extends Activity {
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
         editor.commit();
+    }
+
+    public void startAnimation(final View view, int color1, int color2) {
+        //创建动画,这里的关键就是使用ArgbEvaluator, 后面2个参数就是 开始的颜色,和结束的颜色.
+        ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), getResources().getColor(color1), getResources().getColor(color2));
+        colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                view.setBackgroundColor((int) animation.getAnimatedValue());//设置一下, 就可以看到效果.
+            }
+        });
+        colorAnimator.setDuration(3000);
+        colorAnimator.start();
     }
 }

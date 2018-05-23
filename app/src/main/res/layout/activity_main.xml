@@ -108,15 +108,17 @@
 </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
         android:background="#ffffff">
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
 
             <com.liming.batteryinfo.view.BatteryView
                 android:id="@+id/batteryview"
@@ -140,16 +142,23 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="8dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
 
             <TextView
                 android:id="@+id/temptip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="8dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
                 android:textSize="16sp"
                 android:text="温度"
                 android:textColor="#cccccc"/>
@@ -158,9 +167,6 @@
                 android:id="@+id/temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
-                android:layout_below="@id/temptip"
                 android:textSize="25sp"
                 android:typeface="monospace"
                 android:textColor="#cccccc"
@@ -170,8 +176,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/voltage"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
                 android:textSize="16sp"
                 android:gravity="bottom"
                 android:text="电压"
@@ -182,14 +186,12 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
-                android:layout_alignParentBottom="true"
                 android:layout_marginBottom="8dp"
                 android:textSize="25sp"
                 android:textColor="#cccccc"
                 android:text="4.235V"/>
 
+            </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
     <GridView

@@ -61,19 +61,6 @@ public class AboutActivity extends BaseActivity {
         versoin.setText(String.format(getResources().getString(R.string.versoin), SystemInfo.getVersionName(this)));
         splashcheckbox.setChecked((Boolean) getParam("splash",false));
     }
-    public void startAnimation(final View view, int color1, int color2) {
-        //创建动画,这里的关键就是使用ArgbEvaluator, 后面2个参数就是 开始的颜色,和结束的颜色.
-        ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), getResources().getColor(color1),  getResources().getColor(color2));
-        colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                view.setBackgroundColor((int)animation.getAnimatedValue());//设置一下, 就可以看到效果.
-            }
-        });
-        colorAnimator.setDuration(3000);
-        colorAnimator.start();
-    }
-
     /**
      * 加qq
      * @param view
