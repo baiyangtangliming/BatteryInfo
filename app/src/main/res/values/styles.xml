@@ -1,5 +1,7 @@
 <resources>
-    <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar"/>
+
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar" />
+
     <style name="DialogTheme" parent="@android:style/Theme.Material.Light.Dialog">
         <item name="android:windowBackground">@color/config_color_transparent</item>
         <item name="android:windowFrame">@null</item>

@@ -72,6 +72,11 @@ public class AboutActivity extends BaseActivity {
             Toast.makeText(getBaseContext(),"启动QQ失败",Toast.LENGTH_SHORT).show();}
 
     }
+
+    /**
+     * 支付宝捐赠
+     * @param view
+     */
     public void alipayDonate(View view){
 
         try {

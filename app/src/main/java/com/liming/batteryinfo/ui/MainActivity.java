@@ -24,39 +24,34 @@ import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
     @ViewInject(R.id.linearLayout)
-    LinearLayout linearLayout;
+    private LinearLayout linearLayout;
     @ViewInject(R.id.battery_current)
-    TextView battery_current;
+    private TextView battery_current;
     @ViewInject(R.id.battery_currenttip)
-    TextView battery_currenttip;
+    private TextView battery_currenttip;
     @ViewInject(R.id.device_name)
-    TextView device_name;
+    private TextView device_name;
     @ViewInject(R.id.sjbattery)
-    TextView sjbattery;
+    private TextView sjbattery;
     @ViewInject(R.id.xdbattery)
-    TextView xdbattery;
+    private TextView xdbattery;
     @ViewInject(R.id.device_nametip)
-    TextView device_nametip;
+    private TextView device_nametip;
     @ViewInject(R.id.batteryviewtip)
-    TextView batteryviewtip;
+    private TextView batteryviewtip;
     @ViewInject(R.id.temp)
-    TextView temp;
+    private TextView temp;
     @ViewInject(R.id.voltage)
-    TextView voltage;
+    private TextView voltage;
     @ViewInject(R.id.gridview)
-    GridView gridView;
+    private GridView gridView;
     @ViewInject(R.id.batteryview)
     private BatteryView verticalBattery;
     @ViewInject(R.id.abouttip)
-    TextView abouttip;
-    ToolAdapter toolAdapter;
-    static int charge_current_max;
-    static int quantity;
-    static int health;
+    private TextView abouttip;
+
     public static int color;
-    public static int donext = 0;
-    private static int[] colors = {
-            R.color.app_color_theme_1,
+    private static int[] colors = {R.color.app_color_theme_1,
             R.color.app_color_theme_2,
             R.color.app_color_theme_3,
             R.color.app_color_theme_4,
@@ -64,29 +59,22 @@ public class MainActivity extends BaseActivity {
             R.color.app_color_theme_6,
             R.color.app_color_theme_7,
             R.color.app_color_theme_8,
-            R.color.app_color_theme_9
-    };
+            R.color.app_color_theme_9};
+
+    private ToolAdapter toolAdapter;
+
+    static int charge_current_max;
+    static int quantity;
+    static int health;
+
+    public static int donext = 0;
     public static int stopnum = 101;
     static int stopdo = 0;
+    private static int power;
+
     public final ArrayList<ToolBean> listItemArrayList = new ArrayList<ToolBean>();
-    Handler mTimeHandler = new Handler() {
-        public void handleMessage(Message message) {
-            super.handleMessage(message);
-            if (message.what == 0 && donext == 0) {
-                initViews();
-                sendEmptyMessageDelayed(0, 1000);
-            }
-            if (message.what == 1) {
-                if (color >= colors.length - 1) {
-                    startAnimation(linearLayout, colors[colors.length - 1], colors[0]);
-                    color = 0;
-                } else {
-                    startAnimation(linearLayout, colors[color], colors[++color]);
-                }
-                sendEmptyMessageDelayed(1, 3000);
-            }
-        }
-    };
+
+    private static Handler mTimeHandler;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -100,56 +88,62 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 初始化功能列表
+     */
     private void initListItem() {
-        listItemArrayList.add(
-                new ToolBean("电池健康程度（仅供参考）",
-                        "数据不准确？点击进行电量校准",
-                        health + "%"));
-
-        listItemArrayList.add(
-                new ToolBean("电池电量百分比",
-                        "点击可修改电量百分比及充电状态",
-                        quantity + "%"));
-        listItemArrayList.add(
-                new ToolBean("电池充电最大电流",
-                        "点击可突破限制",
-                        charge_current_max + "mA"));
-        listItemArrayList.add(
-                new ToolBean("定量停冲(实验性)",
-                        "电量冲至指定电量禁止充电",
-                        stopnum + "%"));
+        listItemArrayList.add(new ToolBean("电池健康程度（仅供参考）", "数据不准确？点击进行电量校准", health + "%"));
+        listItemArrayList.add(new ToolBean("电池电量百分比", "点击可修改电量百分比及充电状态", quantity + "%"));
+        listItemArrayList.add(new ToolBean("电池充电最大电流", "点击可突破限制", charge_current_max + "mA"));
+        listItemArrayList.add(new ToolBean("定量停冲(实验性)", "电量冲至指定电量禁止充电", stopnum + "%"));
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTimeHandler.sendEmptyMessage(1);
-        mTimeHandler.sendEmptyMessage(0);
-        Typeface mtypeface = Typeface.createFromFile("/system/fonts/Roboto-Thin.ttf");
-        batteryviewtip.setTypeface(mtypeface);
-        temp.setTypeface(mtypeface);
-        voltage.setTypeface(mtypeface);
-        abouttip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AboutActivity.class));
-            }
-        });
+        initHandler();
+        setFonts();
         initListItem();
+        initgridView();
+
+    }
+
+    /**
+     * 设置九宫格
+     */
+    private void initgridView() {
         //生成适配器的ImageItem 与动态数组的元素相对应
         toolAdapter = new ToolAdapter(this, listItemArrayList);
         //添加并且显示
         gridView.setAdapter(toolAdapter);
         //添加消息处理
         gridView.setOnItemClickListener(new GridViewItemClickListener(this));
-
     }
 
-    private static int power;
+    /**
+     * 设置字体
+     */
+    private void setFonts(){
+        Typeface mtypeface = Typeface.createFromFile("/system/fonts/Roboto-Thin.ttf");
+        batteryviewtip.setTypeface(mtypeface);
+        temp.setTypeface(mtypeface);
+        voltage.setTypeface(mtypeface);
+    }
 
+    /**
+     * 打开关于
+     * @param view
+     */
+    public void openAbout(View view){
+        startActivity(new Intent(MainActivity.this, AboutActivity.class));
+    }
+
+    /**
+     * 初始化视图
+     */
     private void initViews() {
-
         device_name.setText(SystemInfo.getBrand() + " " + SystemInfo.getModel());
         device_nametip.setText(SystemInfo.getDevice() + " Android" + SystemInfo.getRelease() + " SDK" + SystemInfo.getSdk());
         new Thread(new Runnable() {
@@ -177,6 +171,45 @@ public class MainActivity extends BaseActivity {
         }).start();
     }
 
+    /**
+     * 初始化Handler
+     */
+    public void initHandler() {
+        mTimeHandler = new Handler() {
+            public void handleMessage(Message message) {
+                super.handleMessage(message);
+                if (message.what == 0 && donext == 0) {
+                    initViews();
+                    sendEmptyMessageDelayed(0, 1000);
+                }
+                if (message.what == 1) {
+                    if (color >= colors.length - 1) {
+                        startAnimation(linearLayout, colors[colors.length - 1], colors[0]);
+                        color = 0;
+                    } else {
+                        startAnimation(linearLayout, colors[color], colors[++color]);
+                    }
+                    sendEmptyMessageDelayed(1, 3000);
+                }
+            }
+        };
+        mTimeHandler.sendEmptyMessage(1);
+        mTimeHandler.sendEmptyMessage(0);
+    }
+
+    /**
+     * 设置视图
+     *
+     * @param charge_full_design
+     * @param charge_full
+     * @param tempstr
+     * @param voltagenum
+     * @param current
+     * @param cycle_count
+     * @param charge_current_max
+     * @param quantity
+     * @param health
+     */
     public void setView(int charge_full_design, int charge_full, Double tempstr, int voltagenum, int current, int cycle_count, int charge_current_max, int quantity, int health) {
         try {
             sjbattery.setText("设计容量" + charge_full_design + "mA");

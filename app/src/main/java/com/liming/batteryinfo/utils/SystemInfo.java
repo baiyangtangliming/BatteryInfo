@@ -76,15 +76,6 @@ final public class SystemInfo {
     }
 
     /**
-     * 基带版本
-     *
-     * @return 基带版本
-     */
-    public static String getIncremental() {
-        return VERSION.INCREMENTAL;
-    }
-
-    /**
      * 系统版本
      *
      * @return 系统版本
@@ -160,17 +151,6 @@ final public class SystemInfo {
     public static int getCycle_count() {
         return parseInt(getPro("cycle_count"));
     }
-
-
-    /**
-     * 电池健康程度
-     *
-     * @return
-     */
-    public static int getHealthy() {
-        return getCharge_full() == 0 ? 0 : 100 * getCharge_full() / getCharge_full_design();
-    }
-
 
     /**
      * 电流

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.liming.batteryinfo">
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,9 +30,11 @@
         <activity
             android:name=".ui.MaxCurrentSettingActivity"
             android:theme="@style/DialogTheme" />
-        <activity android:name=".ui.AboutActivity"
+        <activity
+            android:name=".ui.AboutActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".ui.TimeChargeActivity"
+        <activity
+            android:name=".ui.TimeChargeActivity"
             android:theme="@style/DialogTheme"></activity>
     </application>
 

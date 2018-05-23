@@ -1,66 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@drawable/main_background"
     android:layout_width="300dp"
-    android:layout_height="200dp">
+    android:layout_height="200dp"
+    android:background="@drawable/main_background"
+    android:orientation="vertical">
+
     <LinearLayout
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:background="#00000000"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_centerVertical="true"
         android:layout_weight="1"
-        android:layout_centerVertical="true">
-        <EditText
-            android:gravity="center"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/battery_text"
-            android:background="@android:color/transparent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="输入电量"
-            android:singleLine="true"
-            android:maxLength="3"
-            android:numeric="integer" />
-        <Spinner
-            android:gravity="center"
-            android:id="@+id/batteryType"
-            android:background="@android:color/transparent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp" />
-        <TextView
-            android:textColor="@color/app_color_theme_1"
-            android:gravity="center"
-            android:id="@+id/tip"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="该功能需要root权限" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
         android:background="#00000000"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/battery_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:hint="输入电量"
+            android:maxLength="3"
+            android:numeric="integer"
+            android:singleLine="true" />
+
+        <Spinner
+            android:id="@+id/batteryType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/transparent"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="该功能需要root权限"
+            android:textColor="@color/app_color_theme_1" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="#00000000"
+        android:orientation="horizontal">
+
         <Button
-            android:textColor="#FFFFFFFF"
             android:id="@+id/btn_resert"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/btn_left_background"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:text="恢复充电"
-            android:layout_weight="1" />
+            android:textColor="#FFFFFFFF" />
+
         <Button
-            android:textColor="#FFFFFFFF"
             android:id="@+id/btn_submit"
-            android:background="@drawable/btn_right_background"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_right_background"
             android:text="确定"
-            android:layout_weight="1" />
+            android:textColor="#FFFFFFFF" />
     </LinearLayout>
 </LinearLayout>
 

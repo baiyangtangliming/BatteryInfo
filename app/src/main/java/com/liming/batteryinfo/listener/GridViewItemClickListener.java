@@ -16,8 +16,9 @@ import com.liming.batteryinfo.utils.SystemInfo;
 
 public class GridViewItemClickListener implements AdapterView.OnItemClickListener {
     MainActivity mainActivity;
+
     public GridViewItemClickListener(MainActivity mainActivity) {
-        this.mainActivity=mainActivity;
+        this.mainActivity = mainActivity;
     }
 
     @Override

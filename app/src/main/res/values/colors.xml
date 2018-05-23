@@ -27,6 +27,5 @@
     <color name="config_color_black">#000000</color>
     <color name="config_color_transparent">#00000000</color>
     <color name="config_color_white">#ffffff</color>
-
     <color name="config_color_blue">#1B88EE</color>
 </resources>
