@@ -2,6 +2,7 @@ package com.liming.batteryinfo.ui;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.liming.batteryinfo.utils.ViewInject;
 
 public class AboutActivity extends BaseActivity {
 
+    public static Context context;
     @ViewInject(R.id.linearLayout)
     LinearLayout linearLayout;
     @ViewInject(R.id.versoin)
@@ -57,6 +59,7 @@ public class AboutActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        context=this;
         mTimeHandler.sendEmptyMessage(1);
         versoin.setText(String.format(getResources().getString(R.string.versoin), SystemInfo.getVersionName(this)));
         splashcheckbox.setChecked((Boolean) getParam("splash",false));
