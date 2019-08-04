@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.liming.batteryinfo.R;
-import com.liming.batteryinfo.utils.RootCmd;
+import com.liming.batteryinfo.utils.ShellUtils;
 import com.liming.batteryinfo.utils.ViewInject;
 
 public class BatterySettingActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
@@ -38,7 +38,7 @@ public class BatterySettingActivity extends BaseActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_resert:
-                RootCmd.execRootCmdSilent("dumpsys battery reset\ndumpsys batterymanager reset\n");
+                ShellUtils.execCmd("dumpsys battery reset\ndumpsys batterymanager reset\n",true);
                 if (this.result != -1) {
                     Toast.makeText(this, "重置成功", Toast.LENGTH_SHORT).show();
                     return;
@@ -80,7 +80,7 @@ public class BatterySettingActivity extends BaseActivity implements View.OnClick
                     shell.append("dumpsys battery set level " + Integer.parseInt(obj) + "\n");
                     shell.append("dumpsys batterymanager set level " + Integer.parseInt(obj) + "\n");
                 }
-                this.result = RootCmd.execRootCmdSilent(shell.toString());
+                this.result = ShellUtils.execCmd(shell.toString(),true).result;
                 if (this.result != -1) {
                     Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
                     return;

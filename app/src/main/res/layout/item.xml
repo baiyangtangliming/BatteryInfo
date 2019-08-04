@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="90dp"
-    android:background="@drawable/gv_selector"
+    android:background="?android:attr/selectableItemBackground"
     android:gravity="center_horizontal|center_vertical">
 
     <TextView

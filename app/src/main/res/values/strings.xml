@@ -3,6 +3,9 @@
     <string name="versoin">当前版本：%1$s</string>
     <string name="update">\n
         -界面细节修整\n
-        -代码整理缩减体积
+        -功能再增加
     </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

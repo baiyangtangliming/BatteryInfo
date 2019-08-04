@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,237 +8,104 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/app_color_theme_1"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:id="@+id/device"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/device_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="center|bottom"
-                android:text="XiaoMi MIX2"
-                android:textColor="@color/config_color_white"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/device_nametip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/device_name"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:text="你的机型"
-                android:textColor="@color/config_color_white"
-                android:textSize="11dp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/battery"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_below="@id/device"
-            android:layout_centerVertical="true"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/battery_current"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="center|bottom"
-                android:text="-340mA"
-                android:textColor="@color/config_color_white"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/battery_currenttip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/battery_current"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:text="正在放电"
-                android:textColor="@color/config_color_white"
-                android:textSize="11dp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerVertical="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:orientation="horizontal">
-
-                <TextView
-
-                    android:id="@+id/sjbattery"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center|center_vertical"
-                    android:text="设计容量：3300mA"
-                    android:textColor="@color/config_color_white"
-                    android:textSize="11dp" />
-
-                <TextView
-                    android:id="@+id/xdbattery"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center|center_vertical"
-                    android:text="限定容量：3200mA"
-                    android:textColor="@color/config_color_white"
-                    android:textSize="11dp" />
-            </LinearLayout>
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="#ffffff"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1">
-
-            <com.liming.batteryinfo.view.BatteryView
-                android:id="@+id/batteryview"
-                android:layout_width="50dp"
-                android:layout_height="80dp"
-                android:layout_margin="20dp"
-                android:background="#fff"
-                android:gravity="center"
-                app:batteryOrientation="vertical" />
-
-            <TextView
-                android:id="@+id/batteryviewtip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/batteryview"
-                android:text="68%"
-                android:textColor="#cccccc"
-                android:textSize="35sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/temptip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="温度"
-                    android:textColor="#cccccc"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/temp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="30℃"
-                    android:textColor="#cccccc"
-                    android:textSize="25sp"
-                    android:typeface="monospace" />
-
-                <TextView
-                    android:id="@+id/voltagetip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/voltage"
-                    android:gravity="bottom"
-                    android:text="电压"
-                    android:textColor="#cccccc"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/voltage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center"
-                    android:text="4.235V"
-                    android:textColor="#cccccc"
-                    android:textSize="25sp" />
-
-            </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
-
-    <GridView
-        android:id="@+id/gridview"
+    <!--帧布局，承载四个TAB的Fragment-->
+    <FrameLayout
+        android:id="@+id/id_framelayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#f9f9f9"
-        android:columnWidth="200dp"
-        android:gravity="center"
-        android:horizontalSpacing="1sp"
-        android:numColumns="1"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="1sp" />
+        android:background="@color/config_color_white" />
 
-    <RelativeLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="1px"
+        android:background="#eeeeee" />
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:background="@color/config_color_white"
-        android:onClick="openAbout">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/abouttip"
-            android:layout_width="match_parent"
+        <!-- 主界面底部4个TAB -->
+
+        <LinearLayout
+            android:id="@+id/id_tab1_layout"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="关于电箱"
-            android:textColor="@color/config_color_gray_6"
-            android:textSize="14sp" />
-    </RelativeLayout>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/id_tab1_imageview"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/main_not_select" />
+            <TextView
+                android:id="@+id/id_tab1_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="主页"
+                android:textColor="@color/config_color_gray_6"
+                android:gravity="center"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/id_tab2_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/id_tab2_imageview"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/charge_not_select" />
+
+            <TextView
+                android:id="@+id/id_tab2_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="充电"
+                android:textColor="@color/config_color_gray_6"
+                android:gravity="center"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/id_tab3_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/id_tab3_imageview"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/settings_not_select" />
+            <TextView
+                android:id="@+id/id_tab3_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="设置"
+                android:textColor="@color/config_color_gray_6"
+                android:gravity="center"
+                android:textSize="12sp"/>
+        </LinearLayout>
 
 
+    </LinearLayout>
 </LinearLayout>

@@ -5,9 +5,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.liming.batteryinfo.R;
+import com.liming.batteryinfo.utils.BatteryInfo;
 import com.liming.batteryinfo.utils.BatteryUtil;
-import com.liming.batteryinfo.utils.SystemInfo;
 import com.liming.batteryinfo.utils.ViewInject;
 
 public class MaxCurrentSettingActivity extends BaseActivity implements View.OnClickListener {
@@ -18,6 +19,8 @@ public class MaxCurrentSettingActivity extends BaseActivity implements View.OnCl
     @ViewInject(R.id.btn_submit)
     Button btn_submit;
 
+    BatteryInfo batteryInfo;
+
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_resert:
@@ -26,14 +29,14 @@ public class MaxCurrentSettingActivity extends BaseActivity implements View.OnCl
             case R.id.btn_submit:
                 String obj = this.battery_text.getText().toString().trim();
                 if (obj.isEmpty()) {
-                    Toast.makeText(getBaseContext(), "请输入电流值",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "请输入电流值", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 StringBuffer shell = new StringBuffer();
                 if (BatteryUtil.setChargeCurrentMax(Integer.valueOf(obj))) {
-                    Toast.makeText(getBaseContext(), String.format("成功修改充电电流为%1$smA",obj),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), String.format("成功修改充电电流为%1$smA", obj), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getBaseContext(), "修改充电电流失败",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "修改充电电流失败", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
@@ -46,7 +49,8 @@ public class MaxCurrentSettingActivity extends BaseActivity implements View.OnCl
         setContentView(R.layout.activity_current_setting);
         this.btn_reset.setOnClickListener(this);
         this.btn_submit.setOnClickListener(this);
-        battery_text.setText(String.valueOf(SystemInfo.getConstant_charge_current_max()));
+        batteryInfo = BatteryInfo.getInstance(getBaseContext());
+        battery_text.setText(String.valueOf(batteryInfo.getChargeCurrentMax()));
     }
 
 }
