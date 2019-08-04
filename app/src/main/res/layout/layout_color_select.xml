@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:columnCount="3"
+    android:orientation="horizontal"
+    android:rowCount="3">
+
+
+        <View
+            android:id="@+id/app_color_theme_1"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="45dp"
+            android:background="@color/app_color_theme_1" />
+
+
+
+        <View
+            android:id="@+id/app_color_theme_2"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="45dp"
+            android:background="@color/app_color_theme_2" />
+
+
+
+        <View
+            android:id="@+id/app_color_theme_3"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="45dp"
+            android:background="@color/app_color_theme_3" />
+
+
+        <View
+            android:id="@+id/app_color_theme_4"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="45dp"
+            android:background="@color/app_color_theme_4" />
+
+
+
+        <View
+            android:id="@+id/app_color_theme_5"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="45dp"
+            android:background="@color/app_color_theme_5" />
+
+
+
+        <View
+            android:id="@+id/app_color_theme_6"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="45dp"
+            android:background="@color/app_color_theme_6" />
+
+
+        <View
+            android:id="@+id/app_color_theme_7"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="45dp"
+            android:background="@color/app_color_theme_7" />
+
+
+
+        <View
+            android:id="@+id/app_color_theme_8"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="45dp"
+            android:background="@color/app_color_theme_8" />
+
+
+
+        <View
+            android:id="@+id/app_color_theme_9"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="45dp"
+            android:background="@color/app_color_theme_9" />
+
+</GridLayout>

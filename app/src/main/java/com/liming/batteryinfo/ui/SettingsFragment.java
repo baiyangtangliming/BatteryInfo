@@ -1,14 +1,15 @@
 package com.liming.batteryinfo.ui;
 
-import android.app.Fragment;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -50,8 +51,11 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
     @ViewInject(R.id.theme_item)
     RelativeLayout themeItem;
 
+    @ViewInject(R.id.theme_view)
+    View themeView;
 
-    private View view ;
+
+    private View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +67,7 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_settings, container, false);
         AnnotateUtils.bindView(view);
-        versoin.setText("电箱 V"+ BuildConfig.VERSION_NAME);
+        versoin.setText("电箱 V" + BuildConfig.VERSION_NAME);
         initView();
         return view;
     }
@@ -81,51 +85,97 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
         themeItem.setOnClickListener(this);
         splashcheckbox.setOnClickListener(this);
         //设置开关
-        splashcheckbox.setChecked((Boolean) getParam("splash",true));
+        splashcheckbox.setChecked((Boolean) getParam("splash", true));
     }
-
 
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.update_item:
-             Toast.makeText(getActivity(),R.string.update,Toast.LENGTH_SHORT).show();
-             break;
+                Toast.makeText(getActivity(), R.string.update, Toast.LENGTH_SHORT).show();
+                break;
 
             case R.id.about_item:
-                Toast.makeText(getActivity(),"白羊唐黎明 出品",Toast.LENGTH_SHORT).show();
-             break;
+                Toast.makeText(getActivity(), "白羊唐黎明 出品", Toast.LENGTH_SHORT).show();
+                break;
 
             case R.id.theme_item:
-                Toast.makeText(getActivity(),"尽请期待",Toast.LENGTH_SHORT).show();
-             break;
+                chooseTheme();
+                break;
 
             case R.id.donate_item:
                 try {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode=" + "https://qr.alipay.com/aex02181nvk2ld7ktftkj6d" + "%3F_s%3Dweb-other&_t=" + System.currentTimeMillis())));
-                }catch (Exception e){
-                    Toast.makeText(view.getContext(),"启动支付宝失败",Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(view.getContext(), "启动支付宝失败", Toast.LENGTH_SHORT).show();
                 }
-             break;
+                break;
 
             case R.id.feedback_item:
                 try {
-                    startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("mqqapi://card/show_pslcard?src_type=internal&source=sharecard&version=1&uin=2862102898")));
-                }catch (Exception e){
-                    Toast.makeText(view.getContext(),"启动QQ失败",Toast.LENGTH_SHORT).show();}
-             break;
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqapi://card/show_pslcard?src_type=internal&source=sharecard&version=1&uin=2862102898")));
+                } catch (Exception e) {
+                    Toast.makeText(view.getContext(), "启动QQ失败", Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.setting_switch:
             case R.id.setting_item:
-                boolean checked=!(Boolean) getParam("splash",true);
-                setParam("splash",checked);
+                boolean checked = !(Boolean) getParam("splash", true);
+                setParam("splash", checked);
                 splashcheckbox.setChecked(checked);
-                Toast.makeText(getActivity(),"开机动画："+(checked?"开":"关"),Toast.LENGTH_SHORT).show();
-             break;
+                Toast.makeText(getActivity(), "开机动画：" + (checked ? "开" : "关"), Toast.LENGTH_SHORT).show();
+                break;
 
             case R.id.thank_item:
-                Toast.makeText(getActivity(),"感谢酷安全体小伙伴支持",Toast.LENGTH_SHORT).show();
-             break;
+                Toast.makeText(getActivity(), "感谢酷安全体小伙伴支持", Toast.LENGTH_SHORT).show();
+                break;
         }
+    }
+
+    /**
+     * 选择主题
+     */
+    private void chooseTheme() {
+
+
+        final AlertDialog dialog = new AlertDialog.Builder(getActivity()).create();
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Drawable color = view.getBackground();
+
+                setParam("theme",color);
+                themeView.setBackground(color);
+                dialog.dismiss();
+            }
+        };
+
+        final View v = getActivity().getLayoutInflater().inflate(R.layout.layout_color_select, null);
+        View theme1 = v.findViewById(R.id.app_color_theme_1);
+        View theme2 = v.findViewById(R.id.app_color_theme_2);
+        View theme3 = v.findViewById(R.id.app_color_theme_3);
+        View theme4 = v.findViewById(R.id.app_color_theme_4);
+        View theme5 = v.findViewById(R.id.app_color_theme_5);
+        View theme6 = v.findViewById(R.id.app_color_theme_6);
+        View theme7 = v.findViewById(R.id.app_color_theme_7);
+        View theme8 = v.findViewById(R.id.app_color_theme_8);
+        View theme9 = v.findViewById(R.id.app_color_theme_9);
+
+        theme1.setOnClickListener(onClickListener);
+        theme2.setOnClickListener(onClickListener);
+        theme3.setOnClickListener(onClickListener);
+        theme4.setOnClickListener(onClickListener);
+        theme5.setOnClickListener(onClickListener);
+        theme6.setOnClickListener(onClickListener);
+        theme7.setOnClickListener(onClickListener);
+        theme8.setOnClickListener(onClickListener);
+        theme9.setOnClickListener(onClickListener);
+
+        dialog.setView(v);
+        dialog.show();
+
     }
 }

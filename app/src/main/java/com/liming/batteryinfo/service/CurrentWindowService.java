@@ -143,6 +143,7 @@ public class CurrentWindowService extends Service {
     Handler mTimeHandler = new Handler() {
         public void handleMessage(Message message) {
             if (message.what == 1){
+                //+String.format("%.1f",(batteryInfo.getTemperature()/10d))+"℃"
                 tvCurrent.setText(batteryInfo.getCurrent() + "mA");//当前电流
                 mTimeHandler.sendEmptyMessageDelayed(1,1000);
             }

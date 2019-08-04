@@ -20,7 +20,7 @@ public class BatteryInfoService extends Service {
 
     private static final String[] BATTERY_PATH = {
             "/sys/class/power_supply/bms/uevent",
-            "/sys/class/power_supply/battery/uevent"
+            "/sys/class/power_supply/Battery/uevent"
     };//电池信息路径
 
 
@@ -106,7 +106,7 @@ public class BatteryInfoService extends Service {
         //获取到event的信息
         for (String path : BATTERY_PATH) {
             ShellUtils.CommandResult commandResult = ShellUtils.execCmd("cat " + path, false);
-            if (!TextUtils.isEmpty(commandResult.successMsg)) {
+            if (commandResult.result != -1 && !TextUtils.isEmpty(commandResult.successMsg)) {
                 uevent = commandResult.successMsg;
                 break;
             }

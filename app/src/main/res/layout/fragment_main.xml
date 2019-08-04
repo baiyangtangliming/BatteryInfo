@@ -167,7 +167,7 @@
                         android:layout_height="wrap_content"
                         android:text="电池工艺"
                         android:textColor="@color/config_color_gray_6"
-                        android:textSize="16sp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:id="@+id/tv_technology"
@@ -175,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:text="未知"
                         android:textColor="@color/config_color_gray_6"
-                        android:textSize="12sp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
 
@@ -199,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:text="循环次数"
                         android:textColor="@color/config_color_gray_6"
-                        android:textSize="16sp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:id="@+id/tv_charge_count"
@@ -207,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:text="0次"
                         android:textColor="@color/config_color_gray_6"
-                        android:textSize="12sp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
 
@@ -231,7 +231,7 @@
                         android:layout_height="wrap_content"
                         android:text="电池状态"
                         android:textColor="@color/config_color_gray_6"
-                        android:textSize="16sp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:id="@+id/tv_health"
@@ -239,7 +239,7 @@
                         android:layout_height="wrap_content"
                         android:text="健康"
                         android:textColor="@color/config_color_gray_6"
-                        android:textSize="12sp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
 
@@ -278,7 +278,7 @@
                         android:layout_toRightOf="@id/batteryview"
                         android:text="68%"
                         android:textColor="#cccccc"
-                        android:textSize="35sp" />
+                        android:textSize="35dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -304,7 +304,7 @@
                             android:layout_height="wrap_content"
                             android:text="温度"
                             android:textColor="#cccccc"
-                            android:textSize="16sp" />
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/temp"
@@ -312,7 +312,7 @@
                             android:layout_height="wrap_content"
                             android:text="30℃"
                             android:textColor="#cccccc"
-                            android:textSize="25sp"
+                            android:textSize="25dp"
                             android:typeface="monospace" />
 
                         <TextView
@@ -323,7 +323,7 @@
                             android:gravity="bottom"
                             android:text="电压"
                             android:textColor="#cccccc"
-                            android:textSize="16sp" />
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/voltage"
@@ -333,7 +333,7 @@
                             android:gravity="center"
                             android:text="4.235V"
                             android:textColor="#cccccc"
-                            android:textSize="25sp" />
+                            android:textSize="25dp" />
 
                     </LinearLayout>
                 </RelativeLayout>

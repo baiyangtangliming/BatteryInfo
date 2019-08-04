@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +32,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     private View view;
 
     BatteryInfo batteryInfo;
+
+    @ViewInject(R.id.batteryview)
+    private BatteryView batteryView;
 
 
     @ViewInject(R.id.dynamicwave)
@@ -156,15 +158,17 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         //上部分
         batteryCurrent.setText(batteryInfo.getCurrent() + "mA");//当前电流
         batteryCurrenttip.setText(batteryInfo.isCharging() ? "正在充电" : "正在放电");
-        sjbattery.setText("设计容量：" + batteryInfo.getBatteryCapacity(getActivity())+ " mAh");
+        sjbattery.setText("设计容量：" + batteryInfo.getBatteryCapacity(getActivity()) + " mAh");
         xdbattery.setText("实际容量：" + (batteryInfo.getChargeFull() / 1000) + " mAh");
 
         //中间部分
         if (batteryInfo.getChargeFull() != 0 && batteryInfo.getChargeCounter() != 0) {
             batteryviewtip.setText(batteryInfo.getQuantity() + "%");//电量百分比
         } else {
-            batteryviewtip.setText(batteryInfo.getQuantity() + "%");//电量百分比
+
         }
+
+        batteryView.setPower(batteryInfo.getQuantity());
 
         temp.setText((batteryInfo.getTemperature() / 10d) + "℃");
         voltage.setText((batteryInfo.getVoltage() / 1000d) + "V");
@@ -174,9 +178,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         tvHealth.setText(batteryInfo.getHealth());
 
         //工具部分
-        tvMaxCurrentNum.setText(batteryInfo.getChargeCurrentMax()/1000+"mA");
-        tvHealthNum.setText(((batteryInfo.getChargeFull() / 10)/batteryInfo.getBatteryCapacity(getActivity()))+"%");
-        tvBatteryChangeNum.setText(batteryInfo.getQuantity()+"%");
+        tvMaxCurrentNum.setText(batteryInfo.getChargeCurrentMax() / 1000 + "mA");
+        tvHealthNum.setText(((batteryInfo.getChargeFull() / 10) / batteryInfo.getBatteryCapacity(getActivity())) + "%");
+        tvBatteryChangeNum.setText(batteryInfo.getQuantity() + "%");
 
         //一秒更新一次
         mTimeHandler.sendEmptyMessageDelayed(SETVIEWDATA, 1000);

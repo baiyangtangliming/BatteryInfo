@@ -212,9 +212,13 @@ public class BatteryInfo {
      *
      * @return
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public int getCurrent() {
-        return (0 - batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)) / 1000;
+
+        if (POWER_SUPPLY_CURRENT_NOW == 0){
+            POWER_SUPPLY_CURRENT_NOW = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW);
+        }
+
+        return (0 - POWER_SUPPLY_CURRENT_NOW) / 1000;
     }
 
     /**
