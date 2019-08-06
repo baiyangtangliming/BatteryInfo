@@ -3,12 +3,14 @@ package com.liming.batteryinfo.ui;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,9 @@ import com.liming.batteryinfo.view.DynamicWave;
 
 
 public class MainFragment extends BaseFragment implements View.OnClickListener {
+
+
+    private static final String TAG = "MainFragment";
 
 
     private View view;
@@ -130,7 +135,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main, container, false);
         AnnotateUtils.bindView(view);
-        startAnimation(dynamicWave);
+
         initView();
         return view;
     }
@@ -148,6 +153,42 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         rlMaxCurrent.setOnClickListener(this);
         setFonts();
         setViewData();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        Log.d(TAG, "setUserVisibleHint: " + isVisibleToUser);
+    }
+
+
+    @Override
+    public void onResume() {//和activity的onResume绑定，Fragment初始化的时候必调用，但切换fragment的hide和visible的时候可能不会调用！
+        super.onResume();
+        if (isAdded() && !isHidden()) {//用isVisible此时为false，因为mView.getWindowToken为null
+            Log.d(TAG, "主界面进入可见状态: ");
+            String theme = (String) getParam("theme", "0");
+            if (theme.equals("0")) {
+                dynamicWave.clearAnimation();
+                startAnimation(dynamicWave);
+
+
+            } else {
+                dynamicWave.clearAnimation();
+                dynamicWave.setBackgroundColor(Color.parseColor(theme));
+            }
+        }
+    }
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {//默认fragment创建的时候是可见的，但是不会调用该方法！切换可见状态的时候会调用，但是调用onResume，onPause的时候却不会调用
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            Log.d(TAG, "onHiddenChanged: " + hidden);
+        } else {
+            Log.d(TAG, "onHiddenChanged: " + hidden);
+        }
     }
 
     /**

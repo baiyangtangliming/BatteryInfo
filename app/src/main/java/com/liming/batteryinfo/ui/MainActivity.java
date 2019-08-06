@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,8 +18,6 @@ import com.liming.batteryinfo.R;
 import com.liming.batteryinfo.broadcast.BatteryInfoBroadcastReceiver;
 import com.liming.batteryinfo.entity.TabEntity;
 import com.liming.batteryinfo.service.BatteryInfoService;
-import com.liming.batteryinfo.service.CurrentWindowService;
-import com.liming.batteryinfo.utils.BatteryInfo;
 
 import java.util.ArrayList;
 import java.util.List;

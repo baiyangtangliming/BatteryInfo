@@ -3,9 +3,11 @@ package com.liming.batteryinfo.ui;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ import com.liming.batteryinfo.utils.ViewInject;
 
 
 public class SettingsFragment extends BaseFragment implements View.OnClickListener {
+
+    private static final String TAG = "SettingsFragment";
 
     @ViewInject(R.id.tx_version)
     TextView versoin;
@@ -71,6 +75,24 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
         initView();
         return view;
     }
+
+
+
+
+    @Override
+    public void onResume() {//和activity的onResume绑定，Fragment初始化的时候必调用，但切换fragment的hide和visible的时候可能不会调用！
+        super.onResume();
+        if (isAdded() && !isHidden()) {//用isVisible此时为false，因为mView.getWindowToken为null
+            Log.d(TAG, "关于面进入可见状态: ");
+            String theme = (String) getParam("theme", "0");
+            if (theme.equals("0")) {
+                themeView.setBackgroundResource(R.drawable.view_select_many_color);
+            } else {
+                themeView.setBackgroundColor(Color.parseColor(theme));
+            }
+        }
+    }
+
 
     /**
      * 初始化视图
@@ -145,10 +167,10 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void onClick(View view) {
 
-                Drawable color = view.getBackground();
+                String color = (String) view.getTag();
 
                 setParam("theme",color);
-                themeView.setBackground(color);
+                themeView.setBackground(view.getBackground());
                 dialog.dismiss();
             }
         };
@@ -163,6 +185,7 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
         View theme7 = v.findViewById(R.id.app_color_theme_7);
         View theme8 = v.findViewById(R.id.app_color_theme_8);
         View theme9 = v.findViewById(R.id.app_color_theme_9);
+        View manyColor = v.findViewById(R.id.app_color_many_color);
 
         theme1.setOnClickListener(onClickListener);
         theme2.setOnClickListener(onClickListener);
@@ -173,6 +196,7 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
         theme7.setOnClickListener(onClickListener);
         theme8.setOnClickListener(onClickListener);
         theme9.setOnClickListener(onClickListener);
+        manyColor.setOnClickListener(onClickListener);
 
         dialog.setView(v);
         dialog.show();
