@@ -8,4 +8,33 @@
         <attr name="batteryColor" format="color" />
         <attr name="batteryPower" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="BatteryWaveView">
+        <attr name="bg_color" format="color" />
+        <attr name="border_color" format="color" />
+        <attr name="first_wave_color" format="color" />
+        <attr name="second_wave_color" format="color" />
+        <attr name="bubble_color" format="color" />
+        <attr name="boder_width" format="dimension" />
+        <attr name="bubble_max_radius" format="dimension" />
+        <attr name="bubble_min_radius" format="dimension" />
+        <attr name="bubble_max_size" format="integer" />
+        <attr name="bubble_max_speed_y" format="integer" />
+        <attr name="progress" format="integer" />
+        <attr name="amplitude" format="float" />
+        <attr name="currentText" format="string" />
+        <attr name="powerText" format="string" />
+<!--    wb_bg_color	圆背景颜色	#FFF0F0F0
+        wb_border_color	边框颜色	#FFFFFFFF
+        wb_first_wave_color	前面水波纹的颜色	#FF4646F8
+        wb_second_wave_color	后面水波纹的颜色	#66266DFF
+        wb_bubble_color	气泡颜色	#33FFFFFF
+        wb_boder_width	外边框宽	6dp
+        wb_bubble_max_radius	气泡最大半径	10dp
+        wb_bubble_min_radius	气泡最小半径	2dp
+        wb_bubble_max_size	气泡最大数量	30
+        wb_bubble_max_speed_y	气泡上升最大速度	3
+        wb_progress	进度	60
+        wb_amplitude	水波振幅	50f-->
+    </declare-styleable>
 </resources>

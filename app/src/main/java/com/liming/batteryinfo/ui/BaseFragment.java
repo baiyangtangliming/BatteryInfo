@@ -39,6 +39,8 @@ public class BaseFragment extends Fragment {
      */
     public void startAnimation(final View view) {
 
+        view.clearAnimation();
+
         Resources resources = getResources();
 
         final List<Integer> colorList = new ArrayList<>();

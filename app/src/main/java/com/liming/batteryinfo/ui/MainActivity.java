@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.liming.batteryinfo.R;
 import com.liming.batteryinfo.broadcast.BatteryInfoBroadcastReceiver;
@@ -27,7 +26,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private List<TabEntity> tabList = new ArrayList<>();
 
-    //private BatteryInfo batteryInfo;
 
 
     private static Handler mTimeHandler;
@@ -95,11 +93,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      */
     @Override
     public void onClick(View view) {
-
-        if (view.getId() == R.id.id_tab2_layout){
-            Toast.makeText(this,"敬请期待充电模块",Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         FragmentManager manager = this.getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

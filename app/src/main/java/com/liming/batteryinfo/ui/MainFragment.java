@@ -171,12 +171,15 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
             if (theme.equals("0")) {
                 dynamicWave.clearAnimation();
                 startAnimation(dynamicWave);
-
-
             } else {
                 dynamicWave.clearAnimation();
                 dynamicWave.setBackgroundColor(Color.parseColor(theme));
             }
+
+            boolean animation = !(Boolean) getParam("animation", true);
+
+
+
         }
     }
 

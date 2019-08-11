@@ -12,6 +12,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,14 +20,15 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:background="@color/config_color_white"
-                android:layout_height="300dp">
+                android:layout_height="300dp"
+                android:background="@color/config_color_white">
+
                 <com.liming.batteryinfo.view.DynamicWave
                     android:id="@+id/dynamicwave"
-                    android:background="@color/app_color_theme_4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true"
+                    android:background="@color/app_color_theme_4" />
 
 
                 <LinearLayout
@@ -41,11 +43,35 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1">
-                        <com.liming.batteryinfo.view.WaterWaveView
-                            android:id="@+id/waterwaveview"
+
+                        <com.liming.batteryinfo.view.BatteryWaveView
+                            android:layout_centerInParent="true"
+                            android:id="@+id/batterywaveview"
                             android:layout_width="180dp"
-                            android:layout_height="match_parent"
-                            android:layout_centerInParent="true"/>
+                            android:layout_height="180dp"
+                            app:amplitude="30"
+                            app:bg_color="#20ffffff"
+                            app:boder_width="8dp"
+                            app:border_color="#20ffffff"
+                            app:bubble_color="#993FD0AD"
+                            app:bubble_max_radius="10dp"
+                            app:bubble_max_size="30"
+                            app:bubble_max_speed_y="5"
+                            app:bubble_min_radius="3dp"
+                            app:first_wave_color="#70ffffff"
+                            app:progress="50"
+                            app:second_wave_color="#55ffffff"
+                            app:powerText="0W"
+                            app:currentText="0mA" />
+
+
+                        <!--
+                                                <com.liming.batteryinfo.view.WaterWaveView
+                                                    android:id="@+id/waterwaveview"
+                                                    android:layout_width="180dp"
+                                                    android:layout_height="match_parent"
+                                                    android:layout_centerInParent="true"/>
+                        -->
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -63,22 +89,22 @@
 
                             <TextView
 
-                                android:id="@+id/sjbattery"
+                                android:id="@+id/tv_temp"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center|center_vertical"
-                                android:text="充电时间：30分钟"
+                                android:text="电池温度：0℃"
                                 android:textColor="@color/config_color_white"
                                 android:textSize="11dp" />
 
                             <TextView
-                                android:id="@+id/xdbattery"
+                                android:id="@+id/tv_voltage"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center|center_vertical"
-                                android:text="冲入电量：10%"
+                                android:text="电池电压：0V"
                                 android:textColor="@color/config_color_white"
                                 android:textSize="11dp" />
                         </LinearLayout>
@@ -105,6 +131,69 @@
 
                 </RelativeLayout>
             </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/config_color_white"
+            android:orientation="vertical">
+            <!--定量停冲-->
+            <RelativeLayout
+                android:id="@+id/rl_stop_charge_item"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_horizontal|center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_stop_charge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_stop_charge_num"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="27dp"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="定量停冲"
+                    android:textColor="@color/config_color_gray_7"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_stop_charge_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_stop_charge"
+                    android:layout_alignLeft="@id/tv_stop_charge"
+                    android:layout_alignBottom="@id/tv_stop_charge_num"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="冲至指定值后停止充电"
+                    android:textColor="@color/config_color_gray_8"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/tv_stop_charge_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="80%"
+                    android:textColor="@color/config_color_gray_7"
+                    android:textSize="30dp" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#f0f0f0"/>
+        </LinearLayout>
 
         </LinearLayout>
 

@@ -31,7 +31,7 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
     TextView versoin;
 
     @ViewInject(R.id.setting_switch)
-    Switch splashcheckbox;
+    Switch splashSwitch;
 
 
     @ViewInject(R.id.update_item)
@@ -48,6 +48,7 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
 
     @ViewInject(R.id.setting_item)
     RelativeLayout settingItem;
+
 
     @ViewInject(R.id.thank_item)
     RelativeLayout thankItem;
@@ -105,9 +106,11 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
         settingItem.setOnClickListener(this);
         thankItem.setOnClickListener(this);
         themeItem.setOnClickListener(this);
-        splashcheckbox.setOnClickListener(this);
+        splashSwitch.setOnClickListener(this);
+
+
         //设置开关
-        splashcheckbox.setChecked((Boolean) getParam("splash", true));
+        splashSwitch.setChecked((Boolean) getParam("splash", true));
     }
 
 
@@ -145,7 +148,7 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
             case R.id.setting_item:
                 boolean checked = !(Boolean) getParam("splash", true);
                 setParam("splash", checked);
-                splashcheckbox.setChecked(checked);
+                splashSwitch.setChecked(checked);
                 Toast.makeText(getActivity(), "开机动画：" + (checked ? "开" : "关"), Toast.LENGTH_SHORT).show();
                 break;
 
