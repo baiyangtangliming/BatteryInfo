@@ -39,7 +39,8 @@ public class BaseFragment extends Fragment {
      */
     public void startAnimation(final View view) {
 
-        view.clearAnimation();
+        Log.d("==========>", "startAnimation: "+view.getId());
+
 
         Resources resources = getResources();
 

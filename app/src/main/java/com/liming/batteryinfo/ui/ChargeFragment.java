@@ -102,8 +102,12 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
             Log.d(TAG, "充电界面进入可见状态: ");
             String theme = (String) getParam("theme", "0");
             if (theme.equals("0")) {
-                dynamicWave.clearAnimation();
-                startAnimation(dynamicWave);
+
+                if (dynamicWave.animate() == null){
+                    dynamicWave.clearAnimation();
+                    startAnimation(dynamicWave);
+                }
+
             } else {
                 dynamicWave.clearAnimation();
                 dynamicWave.setBackgroundColor(Color.parseColor(theme));
@@ -111,6 +115,18 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "充电界面进入停止状态: ");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "充电界面进入暂停状态: ");
+
+    }
 
     /**
      * 初始化视图数据

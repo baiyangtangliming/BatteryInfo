@@ -21,6 +21,7 @@ import android.view.animation.LinearInterpolator;
 
 
 import com.liming.batteryinfo.R;
+import com.liming.batteryinfo.utils.BatteryInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,8 +75,11 @@ public class BatteryWaveView extends View {
     private Matrix mShaderMatrix;
     private float mAmplitudeRatio;
 
+    BatteryInfo batteryInfo;
+
     public BatteryWaveView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        batteryInfo = BatteryInfo.getInstance(context);
         init(context, attrs);
     }
 
@@ -234,9 +238,12 @@ public class BatteryWaveView extends View {
         //绘制水波
         drawWave(canvas);
 
-        tryCreateBubble();
-        refreshBubbles();
-        drawBubbles(canvas);
+        //充电的状态下绘制圆圈
+        if (batteryInfo.isCharging()){
+            tryCreateBubble();
+            refreshBubbles();
+            drawBubbles(canvas);
+        }
 
         //绘制文字
         drawFont(canvas);
