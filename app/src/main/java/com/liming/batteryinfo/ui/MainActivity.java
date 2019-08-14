@@ -17,6 +17,7 @@ import com.liming.batteryinfo.R;
 import com.liming.batteryinfo.broadcast.BatteryInfoBroadcastReceiver;
 import com.liming.batteryinfo.entity.TabEntity;
 import com.liming.batteryinfo.service.BatteryInfoService;
+import com.liming.batteryinfo.utils.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     private List<TabEntity> tabList = new ArrayList<>();
+
+
+    @ViewInject(R.id.bottomLayout)
+    LinearLayout bottomLayout;
 
 
 
@@ -93,6 +98,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      */
     @Override
     public void onClick(View view) {
+
+        if (view.getId() == R.id.id_tab2_layout){
+            bottomLayout.setBackgroundResource(R.drawable.background_gradient);
+        }else {
+            bottomLayout.setBackgroundResource(R.color.config_color_white);
+        }
 
         FragmentManager manager = this.getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

@@ -120,11 +120,15 @@ public class BatteryInfoService extends Service {
         //Log.d(TAG, "catBmsInfo:============================》\n "+uevent);
         String[] arr = uevent.split("\n");
         for (String ueventLine : arr) {
-            if (TextUtils.isEmpty(ueventLine)) {
+            if (TextUtils.isEmpty(ueventLine) || !ueventLine.contains("=")) {
                 continue;
             }
+
             String[] key = ueventLine.split("=");
-            ueventMap.put(key[0], key[1]);
+            if (key!=null && key.length > 1){
+                ueventMap.put(key[0], key[1]);
+            }
+
         }
 
 

@@ -16,10 +16,10 @@
         android:layout_weight="1"
         android:background="@color/config_color_white" />
 
-    <View
+<!--    <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#eeeeee" />
+        android:background="#eeeeee" />-->
 
     <LinearLayout
         android:id="@+id/bottomLayout"

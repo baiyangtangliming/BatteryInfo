@@ -1,5 +1,6 @@
 package com.liming.batteryinfo.ui;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.liming.batteryinfo.R;
 import com.liming.batteryinfo.utils.AnnotateUtils;
@@ -29,10 +31,6 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
 
     private View view;
 
-
-    @ViewInject(R.id.dynamicwave)
-    private DynamicWave dynamicWave;
-
     @ViewInject(R.id.batterywaveview)
     BatteryWaveView batteryWaveView;
 
@@ -42,9 +40,14 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
     @ViewInject(R.id.tv_temp)
     TextView tvTemp;
 
+    @ViewInject(R.id.tv_capacity_now)
+    TextView tvCapacityNow;
 
-    @ViewInject(R.id.rl_stop_charge_item)
-    RelativeLayout rlStopChargeItem;
+    @ViewInject(R.id.tv_capacity_full)
+    TextView tvCapacityFull;
+
+    ValueAnimator valueAnimator;
+
 
 
     private static int SETVIEWDATA = 1;//设置视图数据
@@ -62,14 +65,25 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
      */
     private void setViewData() {
 
+        if (!isAdded() || isHidden()) {
+            return;
+        }
+
         batteryWaveView.setProgress(batteryInfo.getQuantity());
         batteryWaveView.setmCurrentText(batteryInfo.getCurrent() + "mA");
         batteryWaveView.setmPowerText(String.format("%.1f", (batteryInfo.getCurrent() * batteryInfo.getVoltage() / 1000000f)) + "W");
 
 
-        tvTemp.setText(("电池温度：" + batteryInfo.getTemperature() / 10d) + "℃");
-        tvVoltage.setText(("电池电压：" + batteryInfo.getVoltage() / 1000d) + "V");
+        tvTemp.setText(( batteryInfo.getTemperature() / 10d) + "℃");
+        tvVoltage.setText(String.format("%.2f",(batteryInfo.getVoltage() / 1000d)) + "V");
+        tvCapacityNow.setText((batteryInfo.getChargeCounter()/1000) + "mA");
+        Integer capacityFull =  (Integer) getParam("capacityFull",0);
+        tvCapacityFull.setText(capacityFull==0?"请充电":(capacityFull + "mA"));
 
+
+        if (batteryInfo.getQuantity() == 100){
+            setParam("capacityFull",(batteryInfo.getChargeCounter()/1000));
+        }
 
         //一秒更新一次
         mTimeHandler.sendEmptyMessageDelayed(SETVIEWDATA, 1000);
@@ -100,18 +114,24 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
         super.onResume();
         if (isAdded() && !isHidden()) {//用isVisible此时为false，因为mView.getWindowToken为null
             Log.d(TAG, "充电界面进入可见状态: ");
-            String theme = (String) getParam("theme", "0");
-            if (theme.equals("0")) {
 
-                if (dynamicWave.animate() == null){
-                    dynamicWave.clearAnimation();
-                    startAnimation(dynamicWave);
+            setViewData();
+
+            String theme = (String) getParam("theme", "0");
+/*            if (theme.equals("0")) {
+
+                if (valueAnimator != null) {
+                    valueAnimator.removeAllUpdateListeners();
                 }
+                    dynamicWave.clearAnimation();
+                    valueAnimator = startAnimation(dynamicWave);
+
+
 
             } else {
                 dynamicWave.clearAnimation();
                 dynamicWave.setBackgroundColor(Color.parseColor(theme));
-            }
+            }*/
         }
     }
 
@@ -132,8 +152,7 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
      * 初始化视图数据
      */
     public void initView() {
-        rlStopChargeItem.setOnClickListener(this);
-        setViewData();
+
     }
 
 
@@ -149,10 +168,6 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
         Intent intent;
 
         switch (view.getId()) {
-            case R.id.rl_stop_charge_item:
-                intent  = new Intent(getActivity(),TimeChargeActivity.class);
-                startActivity(intent);
-                break;
             default:
         }
     }

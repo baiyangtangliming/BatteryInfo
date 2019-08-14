@@ -226,7 +226,6 @@ public class BatteryInfo {
      *
      * @return
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public int getChargeCounter() {
         return batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER);
     }
@@ -279,11 +278,6 @@ public class BatteryInfo {
      */
     public int getBatteryCapacity(Context context) {
 
-
-        if (POWER_SUPPLY_CHARGE_FULL_DESIGN != 0){
-            return (POWER_SUPPLY_CHARGE_FULL_DESIGN/1000);
-        }
-
         Object mPowerProfile;
         double batteryCapacity = 0;
         final String POWER_PROFILE_CLASS = "com.android.internal.os.PowerProfile";
@@ -301,6 +295,13 @@ public class BatteryInfo {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
+        if ((int)batteryCapacity == 0){
+            return (POWER_SUPPLY_CHARGE_FULL_DESIGN/1000);
+        }
+
 
         return (int)batteryCapacity;
     }

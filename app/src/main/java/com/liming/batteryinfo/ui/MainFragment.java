@@ -1,5 +1,6 @@
 package com.liming.batteryinfo.ui;
 
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -112,6 +113,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     @ViewInject(R.id.tv_max_current_num)
     TextView tvMaxCurrentNum;
 
+    ValueAnimator valueAnimator;
+
+
 
     private static int SETVIEWDATA = 1;//设置视图数据
 
@@ -169,16 +173,17 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
             Log.d(TAG, "主界面进入可见状态: ");
             String theme = (String) getParam("theme", "0");
             if (theme.equals("0")) {
+
+                if (valueAnimator != null) {
+                    valueAnimator.removeAllUpdateListeners();
+                }
+
                 dynamicWave.clearAnimation();
-                startAnimation(dynamicWave);
+                valueAnimator = startAnimation(dynamicWave);
             } else {
                 dynamicWave.clearAnimation();
                 dynamicWave.setBackgroundColor(Color.parseColor(theme));
             }
-
-            boolean animation = !(Boolean) getParam("animation", true);
-
-
 
         }
     }

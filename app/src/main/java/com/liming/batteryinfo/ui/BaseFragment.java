@@ -9,9 +9,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.liming.batteryinfo.R;
 import com.liming.batteryinfo.utils.AnnotateUtils;
@@ -37,7 +35,7 @@ public class BaseFragment extends Fragment {
      *播放动画
      * @param view
      */
-    public void startAnimation(final View view) {
+    public ValueAnimator startAnimation(final View view) {
 
         Log.d("==========>", "startAnimation: "+view.getId());
 
@@ -58,6 +56,7 @@ public class BaseFragment extends Fragment {
 
         //创建动画,这里的关键就是使用ArgbEvaluator, 后面2个参数就是 开始的颜色,和结束的颜色.
          ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),colorList.get(0) , colorList.get(1));
+
         colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -93,6 +92,8 @@ public class BaseFragment extends Fragment {
         });
         colorAnimator.setDuration(3000);
         colorAnimator.start();
+
+        return colorAnimator;
     }
 
     /**
@@ -134,7 +135,7 @@ public class BaseFragment extends Fragment {
      */
     public Object getParam(String key, Object defaultObject){
         String type = defaultObject.getClass().getSimpleName();
-        SharedPreferences sp = getActivity().getBaseContext().getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = getActivity().getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 
         if("String".equals(type)){
             return sp.getString(key, (String)defaultObject);
