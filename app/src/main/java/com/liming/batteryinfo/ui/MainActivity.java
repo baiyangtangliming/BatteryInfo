@@ -119,10 +119,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     return;
                 }
 
-                if (batteryInfo.getQuantity() >= stopnum){
+                if (batteryInfo.isCharging() && batteryInfo.getQuantity() >= stopnum){
                     //停止充电
                     ShellUtils.execCmd("if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; \nthen \necho 0 > /sys/class/power_supply/battery/battery_charging_enabled; \nelse \necho 1 > /sys/class/power_supply/battery/input_suspend; \nfi;\n",true);
-                }else if (batteryInfo.getQuantity() <= 60){
+                }else if (!batteryInfo.isCharging() && batteryInfo.getQuantity() <= 60){
                     //恢复充电
                     ShellUtils.execCmd("if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; then echo 1 > /sys/class/power_supply/battery/battery_charging_enabled; else echo 0 > /sys/class/power_supply/battery/input_suspend; fi;\n",true);
                 }
