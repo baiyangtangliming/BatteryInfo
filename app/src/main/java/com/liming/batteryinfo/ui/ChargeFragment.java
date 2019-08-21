@@ -2,7 +2,6 @@ package com.liming.batteryinfo.ui;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,16 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.liming.batteryinfo.R;
 import com.liming.batteryinfo.utils.AnnotateUtils;
 import com.liming.batteryinfo.utils.BatteryInfo;
 import com.liming.batteryinfo.utils.ViewInject;
 import com.liming.batteryinfo.view.BatteryWaveView;
-import com.liming.batteryinfo.view.DynamicWave;
 
 
 public class ChargeFragment extends BaseFragment implements View.OnClickListener {
@@ -46,8 +43,44 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
     @ViewInject(R.id.tv_capacity_full)
     TextView tvCapacityFull;
 
-    ValueAnimator valueAnimator;
 
+    @ViewInject(R.id.ll_charging_reminder)
+    LinearLayout llChargingReminder;
+
+    @ViewInject(R.id.ll_electricity)
+    LinearLayout llElectricity;
+
+    @ViewInject(R.id.ll_max_current)
+    LinearLayout llMaxCurrent;
+
+    @ViewInject(R.id.ll_other_settings)
+    LinearLayout llOtherSettnigs;
+
+    @ViewInject(R.id.ll_quantitative_stop)
+    LinearLayout llQuantitativeStop;
+
+    @ViewInject(R.id.ll_smart_charging)
+    LinearLayout llSmartCharging;
+
+
+    @ViewInject(R.id.tv_charging_reminder)
+    TextView tvChargingReminder;
+
+    @ViewInject(R.id.tv_electricity)
+    TextView tvElectricity;
+
+
+    @ViewInject(R.id.tv_electricity_num)
+    TextView tvElectricityNum;
+
+    @ViewInject(R.id.tv_max_current)
+    TextView tvMaxCurrent;
+
+    @ViewInject(R.id.tv_quantitative_stop)
+    TextView tvQuantitativeStop;
+
+    @ViewInject(R.id.tv_smart_charging)
+    TextView tvSmartCharging;
 
 
     private static int SETVIEWDATA = 1;//设置视图数据
@@ -74,16 +107,31 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
         batteryWaveView.setmPowerText(String.format("%.1f", (batteryInfo.getCurrent() * batteryInfo.getVoltage() / 1000000f)) + "W");
 
 
-        tvTemp.setText(( batteryInfo.getTemperature() / 10d) + "℃");
-        tvVoltage.setText(String.format("%.2f",(batteryInfo.getVoltage() / 1000d)) + "V");
-        tvCapacityNow.setText((batteryInfo.getChargeCounter()/1000) + "mA");
-        Integer capacityFull =  (Integer) getParam("capacityFull",0);
-        tvCapacityFull.setText(capacityFull==0?"请充电":(capacityFull + "mA"));
+        tvTemp.setText((batteryInfo.getTemperature() / 10d) + "℃");
+        tvVoltage.setText(String.format("%.2f", (batteryInfo.getVoltage() / 1000d)) + "V");
+        tvCapacityNow.setText((batteryInfo.getChargeCounter() / 1000) + "mA");
+        Integer capacityFull = (Integer) getParam("capacityFull", 0);
+        tvCapacityFull.setText(capacityFull == 0 ? "请满充电" : (capacityFull + "mA"));
 
 
-        if (batteryInfo.getQuantity() == 100){
-            setParam("capacityFull",(batteryInfo.getChargeCounter()/1000));
+        if (batteryInfo.getQuantity() == 100) {
+            setParam("capacityFull", (batteryInfo.getChargeCounter() / 1000));
         }
+
+
+        tvElectricityNum.setText(batteryInfo.getQuantity()+"%");
+
+        if (capacityFull > 0 && batteryInfo.isCharging()){
+            tvElectricity.setText("预计"+((capacityFull*1000 - batteryInfo.getChargeCounter())/batteryInfo.getCurrent()/60)+"分钟后充满");
+        }else if (capacityFull == 0 && batteryInfo.isCharging()){
+            tvElectricity.setText("循环充电一次后可可计算充电速度");
+        }else {
+            tvElectricity.setText("预计可使用"+(batteryInfo.getChargeCounter()/batteryInfo.getCurrent()/60)+"分钟");
+        }
+
+
+
+        tvMaxCurrent.setText("最大充电电流"+(batteryInfo.getChargeCurrentMax() / 1000)+"mA");
 
         //一秒更新一次
         mTimeHandler.sendEmptyMessageDelayed(SETVIEWDATA, 1000);
@@ -117,21 +165,6 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
 
             setViewData();
 
-            String theme = (String) getParam("theme", "0");
-/*            if (theme.equals("0")) {
-
-                if (valueAnimator != null) {
-                    valueAnimator.removeAllUpdateListeners();
-                }
-                    dynamicWave.clearAnimation();
-                    valueAnimator = startAnimation(dynamicWave);
-
-
-
-            } else {
-                dynamicWave.clearAnimation();
-                dynamicWave.setBackgroundColor(Color.parseColor(theme));
-            }*/
         }
     }
 
@@ -152,13 +185,12 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
      * 初始化视图数据
      */
     public void initView() {
-
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+        llChargingReminder.setOnClickListener(this);
+        llElectricity.setOnClickListener(this);
+        llMaxCurrent.setOnClickListener(this);
+        llOtherSettnigs.setOnClickListener(this);
+        llQuantitativeStop.setOnClickListener(this);
+        llSmartCharging.setOnClickListener(this);
     }
 
 
@@ -168,6 +200,20 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
         Intent intent;
 
         switch (view.getId()) {
+            case R.id.ll_charging_reminder:
+                break;
+            case R.id.ll_electricity:
+                break;
+            case R.id.ll_max_current:
+                startActivity(new Intent(getActivity(), MaxCurrentSettingActivity.class));
+                break;
+            case R.id.ll_other_settings:
+                break;
+            case R.id.ll_quantitative_stop:
+                startActivity(new Intent(getActivity(), TimeChargeActivity.class));
+                break;
+            case R.id.ll_smart_charging:
+                break;
             default:
         }
     }

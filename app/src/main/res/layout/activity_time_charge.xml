@@ -26,13 +26,13 @@
             android:numeric="integer"
             android:singleLine="true" />
 
-        <Spinner
+<!--        <Spinner
             android:id="@+id/batteryType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@android:color/transparent"
-            android:gravity="center" />
+            android:gravity="center" />-->
 
         <TextView
             android:id="@+id/tip"
@@ -42,6 +42,14 @@
             android:padding="5dp"
             android:text="该功能需要root权限"
             android:textColor="@color/app_color_theme_1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="默认电量低于60%恢复充电"
+            android:textColor="@color/app_color_theme_6" />
     </LinearLayout>
 
     <LinearLayout

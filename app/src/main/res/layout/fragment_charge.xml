@@ -193,6 +193,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/ll_charging_reminder"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
@@ -215,6 +216,7 @@
                         android:textSize="14dp" />
 
                     <TextView
+                        android:id="@+id/tv_charging_reminder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -227,6 +229,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/ll_quantitative_stop"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
@@ -249,6 +252,7 @@
                         android:textSize="14dp" />
 
                     <TextView
+                        android:id="@+id/tv_quantitative_stop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -270,6 +274,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/ll_smart_charging"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
@@ -292,6 +297,7 @@
                         android:textSize="14dp" />
 
                     <TextView
+                        android:id="@+id/tv_smart_charging"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -304,6 +310,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/ll_electricity"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
@@ -318,6 +325,7 @@
                         android:src="@drawable/ic_power" />
 
                     <TextView
+                        android:id="@+id/tv_electricity_num"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -326,6 +334,7 @@
                         android:textSize="14dp" />
 
                     <TextView
+                        android:id="@+id/tv_electricity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -347,6 +356,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/ll_max_current"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
@@ -369,6 +379,7 @@
                         android:textSize="14dp" />
 
                     <TextView
+                        android:id="@+id/tv_max_current"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -381,6 +392,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/ll_other_settings"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"

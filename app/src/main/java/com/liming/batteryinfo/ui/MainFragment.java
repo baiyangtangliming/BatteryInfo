@@ -107,12 +107,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     TextView tvBatteryChangeNum;
 
 
-    @ViewInject(R.id.rl_max_current)
-    RelativeLayout rlMaxCurrent;//最大充电电流设置
-
-    @ViewInject(R.id.tv_max_current_num)
-    TextView tvMaxCurrentNum;
-
     ValueAnimator valueAnimator;
 
 
@@ -154,7 +148,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         rlCurrentWindown.setOnClickListener(this);
         rlHealthItem.setOnClickListener(this);
         batteryChangeItem.setOnClickListener(this);
-        rlMaxCurrent.setOnClickListener(this);
+
         setFonts();
         setViewData();
     }
@@ -227,7 +221,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         tvHealth.setText(batteryInfo.getHealth());
 
         //工具部分
-        tvMaxCurrentNum.setText(batteryInfo.getChargeCurrentMax() / 1000 + "mA");
         tvHealthNum.setText(((batteryInfo.getChargeFull() / 10) / batteryInfo.getBatteryCapacity(getActivity())) + "%");
         tvBatteryChangeNum.setText(batteryInfo.getQuantity() + "%");
 
@@ -247,7 +240,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         voltage.setTypeface(mtypeface);
         tvHealthNum.setTypeface(mtypeface);
         tvBatteryChangeNum.setTypeface(mtypeface);
-        tvMaxCurrentNum.setTypeface(mtypeface);
+
     }
 
 
@@ -301,9 +294,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
 
                 Intent intent = new Intent(getActivity(), BatterySettingActivity.class);
                 getActivity().startActivity(intent);
-                break;
-            case R.id.rl_max_current:
-                startActivity(new Intent(getActivity(), MaxCurrentSettingActivity.class));
                 break;
             default:
                 break;

@@ -481,59 +481,7 @@
                         android:textColor="@color/config_color_gray_7"
                         android:textSize="30dp" />
                 </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#f0f0f0"/>
-                <!--电流限制-->
-                <RelativeLayout
-                    android:id="@+id/rl_max_current"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:gravity="center_horizontal|center_vertical">
 
-                    <TextView
-                        android:id="@+id/tv_max_current"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/tv_max_current_num"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginStart="27dp"
-                        android:layout_weight="2"
-                        android:gravity="center"
-                        android:text="充电限制电流"
-                        android:textColor="@color/config_color_gray_7"
-                        android:textSize="15dp" />
-
-                    <TextView
-                        android:id="@+id/tv_max_current_tip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_max_current"
-                        android:layout_alignLeft="@id/tv_max_current"
-                        android:layout_alignBottom="@id/tv_max_current_num"
-                        android:layout_weight="2"
-                        android:gravity="center"
-                        android:text="点击可修改最大电流值 ps:慎用 爆炸不关我事"
-                        android:textColor="@color/config_color_gray_8"
-                        android:textSize="10dp" />
-
-                    <TextView
-                        android:id="@+id/tv_max_current_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="80%"
-                        android:textColor="@color/config_color_gray_7"
-                        android:textSize="30dp" />
-                </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"

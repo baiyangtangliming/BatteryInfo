@@ -17,8 +17,7 @@ import com.liming.batteryinfo.utils.ViewInject;
 public class TimeChargeActivity extends BaseActivity implements View.OnClickListener {
     @ViewInject(R.id.battery_text)
     EditText battery_text;
-    @ViewInject(R.id.batteryType)
-    Spinner battery_type;
+
     @ViewInject(R.id.btn_resert)
     Button btn_reset;
     @ViewInject(R.id.btn_submit)
@@ -26,7 +25,6 @@ public class TimeChargeActivity extends BaseActivity implements View.OnClickList
     int result;
     @ViewInject(R.id.tip)
     TextView tip;
-    public static String[] dothings = new String[]{"充电停止后关闭软件", "充电停止后关闭手机", "充电停止后重启手机", "充电停止后不做操作"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,20 +32,18 @@ public class TimeChargeActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_time_charge);
         this.btn_reset.setOnClickListener(this);
         this.btn_submit.setOnClickListener(this);
-        this.battery_type.setAdapter(new ArrayAdapter(this, R.layout.simple_spinner_item, dothings));
-        Intent intent = getIntent();
-        battery_text.setText(String.valueOf(intent.getIntExtra("stopnum", 101)));
+
+        int stopnum = (int)getParam("stopnum", 0);
+
+        battery_text.setText(String.valueOf(stopnum));
     }
 
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.btn_resert:
-                if (ShellUtils.execCmd("if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; then echo 1 > /sys/class/power_supply/battery/battery_charging_enabled; else echo 0 > /sys/class/power_supply/battery/input_suspend; fi;setprop vtools.bp 0;\n",true).result != -1) {
-                    intent.putExtra("stopnum", 101);
-                    intent.putExtra("stopdo", 0);
-                    intent.putExtra("memo", dothings[dothings.length - 1]);
-                    setResult(1, intent);
+                if (ShellUtils.execCmd("if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; then echo 1 > /sys/class/power_supply/battery/battery_charging_enabled; else echo 0 > /sys/class/power_supply/battery/input_suspend; fi;\n",true).result != -1) {
+                    setParam("stopnum", 0);
                     Toast.makeText(TimeChargeActivity.this, "恢复充电成功", Toast.LENGTH_SHORT).show();
                     this.finish();
                 } else {
@@ -57,12 +53,15 @@ public class TimeChargeActivity extends BaseActivity implements View.OnClickList
             case R.id.btn_submit:
                 String obj = this.battery_text.getText().toString();
                 if (obj.isEmpty()) {
-                    obj = "101";
+                    obj = "0";
                 }
-                intent.putExtra("stopnum", Integer.valueOf(obj));
-                intent.putExtra("stopdo", this.battery_type.getSelectedItemPosition());
-                intent.putExtra("memo", dothings[battery_type.getSelectedItemPosition()]);
-                setResult(1, intent);
+
+                if (Integer.valueOf(obj) < 60){
+                    Toast.makeText(TimeChargeActivity.this, "暂时只支持60%以上停止充电", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                setParam("stopnum",  Integer.valueOf(obj));
                 this.finish();
                 break;
             default:

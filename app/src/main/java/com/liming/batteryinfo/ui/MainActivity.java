@@ -17,6 +17,8 @@ import com.liming.batteryinfo.R;
 import com.liming.batteryinfo.broadcast.BatteryInfoBroadcastReceiver;
 import com.liming.batteryinfo.entity.TabEntity;
 import com.liming.batteryinfo.service.BatteryInfoService;
+import com.liming.batteryinfo.utils.BatteryInfo;
+import com.liming.batteryinfo.utils.ShellUtils;
 import com.liming.batteryinfo.utils.ViewInject;
 
 import java.util.ArrayList;
@@ -32,6 +34,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     LinearLayout bottomLayout;
 
 
+    BatteryInfo batteryInfo;
+
+
 
     private static Handler mTimeHandler;
 
@@ -40,8 +45,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //batteryInfo = BatteryInfo.getInstance(this);
-
+        batteryInfo = BatteryInfo.getInstance(this);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
 
@@ -49,10 +53,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Intent intent = new Intent(this,BatteryInfoService.class);
         startService(intent);
 
+
+
         initFragment();
 
         initHandler();
 
+        mTimeHandler.sendEmptyMessage( 0);
 
     }
 
@@ -85,12 +92,49 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void handleMessage(Message message) {
                 super.handleMessage(message);
                 if (message.what == 0) {
-
+                    stopCharge();
+                    mTimeHandler.sendEmptyMessageDelayed(0, 1000);
                 }
 
             }
         };
     }
+
+    /**
+     * 停止充电
+     */
+    Thread thread;
+    private void stopCharge() {
+
+        if (thread != null && thread.isAlive()){
+            return;
+        }
+
+            thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                int stopnum = (int)getParam("stopnum", 0);
+                if (stopnum == 0){
+                    return;
+                }
+
+                if (batteryInfo.getQuantity() >= stopnum){
+                    //停止充电
+                    ShellUtils.execCmd("if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; \nthen \necho 0 > /sys/class/power_supply/battery/battery_charging_enabled; \nelse \necho 1 > /sys/class/power_supply/battery/input_suspend; \nfi;\n",true);
+                }else if (batteryInfo.getQuantity() <= 60){
+                    //恢复充电
+                    ShellUtils.execCmd("if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; then echo 1 > /sys/class/power_supply/battery/battery_charging_enabled; else echo 0 > /sys/class/power_supply/battery/input_suspend; fi;\n",true);
+                }
+            }
+        },"STOPCHARGE");
+
+        thread.start();
+
+    }
+
+
+
 
     /**
      * tab按钮点击事件
