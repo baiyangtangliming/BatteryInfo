@@ -38,6 +38,10 @@
                 android:name=".ui.TimeChargeActivity"
                 android:theme="@style/DialogTheme"></activity>
 
+        <activity
+            android:name=".ui.NotifChargeActivity"
+            android:theme="@style/DialogTheme"></activity>
+
         <service android:name=".service.CurrentWindowService"/>
         <service android:name=".service.BatteryInfoService"/>
         <receiver

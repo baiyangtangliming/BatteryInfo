@@ -5,9 +5,13 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -93,6 +97,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 super.handleMessage(message);
                 if (message.what == 0) {
                     stopCharge();
+                    notifCharge();
                     mTimeHandler.sendEmptyMessageDelayed(0, 1000);
                 }
 
@@ -101,9 +106,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     /**
+     * 充电提醒
+     */
+    boolean isOpenNotif = false;
+    private void notifCharge() {
+
+        int notifnum = (int)getParam("notifnum", 0);
+        if (notifnum == 0){
+            isOpenNotif = false;
+            return;
+        }
+
+
+        if (batteryInfo.isCharging() && batteryInfo.getQuantity() >= notifnum){
+            Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone rt = RingtoneManager.getRingtone(getApplicationContext(), uri);
+            rt.play();
+            if (!isOpenNotif){
+                isOpenNotif = true;
+                startActivity(new Intent(this, NotifChargeActivity.class));
+            }
+
+
+        }
+
+    }
+
+    /**
      * 停止充电
      */
     Thread thread;
+    boolean dostart = false;
     private void stopCharge() {
 
         if (thread != null && thread.isAlive()){
@@ -119,12 +152,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     return;
                 }
 
+                Log.d("cd",batteryInfo.isCharging()+"");
+
                 if (batteryInfo.isCharging() && batteryInfo.getQuantity() >= stopnum){
                     //停止充电
                     ShellUtils.execCmd("if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; \nthen \necho 0 > /sys/class/power_supply/battery/battery_charging_enabled; \nelse \necho 1 > /sys/class/power_supply/battery/input_suspend; \nfi;\n",true);
-                }else if (!batteryInfo.isCharging() && batteryInfo.getQuantity() <= 60){
+                    dostart = false;
+                }else if (!dostart && batteryInfo.getQuantity() < 60){
                     //恢复充电
-                    ShellUtils.execCmd("if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; then echo 1 > /sys/class/power_supply/battery/battery_charging_enabled; else echo 0 > /sys/class/power_supply/battery/input_suspend; fi;\n",true);
+                    ShellUtils.CommandResult commandResult = ShellUtils.execCmd("if [ -f '/sys/class/power_supply/battery/battery_charging_enabled' ]; \nthen \necho 1 > /sys/class/power_supply/battery/battery_charging_enabled; \nelse \necho 0 > /sys/class/power_supply/battery/input_suspend; \nfi;\n", true);
+                    if (commandResult.result != -1){
+                        dostart = true;
+                    }
                 }
             }
         },"STOPCHARGE");

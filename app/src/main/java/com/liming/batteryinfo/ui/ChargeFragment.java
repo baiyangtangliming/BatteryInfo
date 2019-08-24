@@ -201,6 +201,7 @@ public class ChargeFragment extends BaseFragment implements View.OnClickListener
 
         switch (view.getId()) {
             case R.id.ll_charging_reminder:
+                startActivity(new Intent(getActivity(), NotifChargeActivity.class));
                 break;
             case R.id.ll_electricity:
                 break;
