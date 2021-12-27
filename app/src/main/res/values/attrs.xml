@@ -9,6 +9,14 @@
         <attr name="batteryPower" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="RealtimeBlurView">
+        <attr name="realtimeBlurRadius" format="float" />
+        <attr name="realtimeDownsampleFactor" format="float" />
+        <attr name="realtimeOverlayColor" format="color" />
+        <attr name="realtimeBlurRoundCornerRadius" format="dimension" />
+    </declare-styleable>
+
+
     <declare-styleable name="BatteryWaveView">
         <attr name="bg_color" format="color" />
         <attr name="border_color" format="color" />

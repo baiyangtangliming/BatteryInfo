@@ -11,7 +11,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:background="@drawable/background_gradient"
+        android:background="@drawable/bbb"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -192,7 +192,9 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <com.liming.batteryinfo.view.RoundCornerBlurView
+                    app:realtimeBlurRoundCornerRadius="4dp"
+                    app:realtimeBlurRadius="2"
                     android:id="@+id/ll_charging_reminder"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -224,11 +226,13 @@
                         android:text="冲至一定电量后响铃提醒"
                         android:textColor="#ccffffff"
                         android:textSize="12dp" />
-                </LinearLayout>
+                </com.liming.batteryinfo.view.RoundCornerBlurView>
 
 
 
-                <LinearLayout
+                <com.liming.batteryinfo.view.RoundCornerBlurView
+                    app:realtimeBlurRoundCornerRadius="4dp"
+                    app:realtimeBlurRadius="2"
                     android:id="@+id/ll_quantitative_stop"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -260,7 +264,7 @@
                         android:text="定时定量停止充电 防止过充"
                         android:textColor="#ccffffff"
                         android:textSize="12dp" />
-                </LinearLayout>
+                </com.liming.batteryinfo.view.RoundCornerBlurView>
 
             </LinearLayout>
 
@@ -273,7 +277,9 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <com.liming.batteryinfo.view.RoundCornerBlurView
+                    app:realtimeBlurRoundCornerRadius="4dp"
+                    app:realtimeBlurRadius="2"
                     android:id="@+id/ll_smart_charging"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -305,11 +311,13 @@
                         android:text="冲至指定电量后停止 早晨恢复"
                         android:textColor="#ccffffff"
                         android:textSize="12dp" />
-                </LinearLayout>
+                </com.liming.batteryinfo.view.RoundCornerBlurView>
 
 
 
-                <LinearLayout
+                <com.liming.batteryinfo.view.RoundCornerBlurView
+                    app:realtimeBlurRoundCornerRadius="4dp"
+                    app:realtimeBlurRadius="2"
                     android:id="@+id/ll_electricity"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -342,7 +350,7 @@
                         android:text="预计12分钟后充满"
                         android:textColor="#ccffffff"
                         android:textSize="12dp" />
-                </LinearLayout>
+                </com.liming.batteryinfo.view.RoundCornerBlurView>
 
             </LinearLayout>
 
@@ -355,7 +363,9 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <com.liming.batteryinfo.view.RoundCornerBlurView
+                    app:realtimeBlurRoundCornerRadius="4dp"
+                    app:realtimeBlurRadius="2"
                     android:id="@+id/ll_max_current"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -387,11 +397,13 @@
                         android:text="突破充电速度"
                         android:textColor="#ccffffff"
                         android:textSize="12dp" />
-                </LinearLayout>
+                </com.liming.batteryinfo.view.RoundCornerBlurView>
 
 
 
-                <LinearLayout
+                <com.liming.batteryinfo.view.RoundCornerBlurView
+                    app:realtimeBlurRoundCornerRadius="4dp"
+                    app:realtimeBlurRadius="2"
                     android:id="@+id/ll_other_settings"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -422,7 +434,7 @@
                         android:text="更多充电自定义选项"
                         android:textColor="#ccffffff"
                         android:textSize="12dp" />
-                </LinearLayout>
+                </com.liming.batteryinfo.view.RoundCornerBlurView>
 
             </LinearLayout>
 

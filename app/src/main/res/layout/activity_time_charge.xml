@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
     android:layout_height="200dp"
     android:background="@drawable/main_background"
-    android:orientation="vertical">
+    app:realtimeBlurRadius="25"
+    app:realtimeBlurRoundCornerRadius="6dp"
+    app:realtimeOverlayColor="#5a4B0082">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,13 +29,13 @@
             android:numeric="integer"
             android:singleLine="true" />
 
-<!--        <Spinner
-            android:id="@+id/batteryType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@android:color/transparent"
-            android:gravity="center" />-->
+        <!--        <Spinner
+                    android:id="@+id/batteryType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center" />-->
 
         <TextView
             android:id="@+id/tip"
