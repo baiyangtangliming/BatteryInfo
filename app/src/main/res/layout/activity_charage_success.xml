@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.CharageSuccessActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true">
+    <com.liming.batteryinfo.view.BatteryView
+        android:id="@+id/batteryview"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:background="#fff"
+        android:layout_gravity="center" 
+        android:gravity="center"
+        app:batteryOrientation="horizontal"/>
+    <TextView
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:textColor="@color/app_color_theme_5"
+        android:text="充电完成"/>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_resert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:background="@color/app_color_theme_2"
+        android:onClick="onClick"
+        android:textColor="@color/config_color_white"
+        android:text="关闭提醒"/>
+
+</RelativeLayout>

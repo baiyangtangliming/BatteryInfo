@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!--底层使用蓝色填充色-->
+    <item>
+        <shape>
+            <size android:height="40dp" android:width="40dp" />
+            <gradient android:startColor="#20E2D7" android:endColor="#92fe9d"/>
+            <corners android:radius="180dip"/>
+        </shape>
+    </item>
+
+    <!--上面一层距离底层的顶部1dp,距离底部1dp,类似marginTop,填充色为白色，这样就形成了一个带有蓝色顶部边线和底部边线的白色背景的图-->
+    <item android:bottom="8dp"
+        android:left="8dp"
+        android:right="8dp"
+        android:top="8dp">
+        <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="12dp"
+            android:height="12dp"
+            android:viewportWidth="1024"
+            android:viewportHeight="1024">
+
+
+
+       <path
+                android:fillColor="#ffffff"
+                android:pathData="M591.845 142.517c6.964 0 12.63 5.091 12.63 11.349v5.473c0 38.206 31.264 69.289 69.692 69.289h107.532c16.084 0 29.17 12.36 29.17 27.553v588.783c0 15.193-13.085 27.553-29.17 27.553H248.376c-16.084 0-29.17-12.36-29.17-27.553V256.18c0-15.193 13.086-27.553 29.17-27.553h107.53c38.431 0 69.697-31.083 69.697-69.289v-5.473c0-6.258 5.665-11.349 12.627-11.349h153.615m0-49.999H438.229c-34.587 0-62.627 27.466-62.627 61.349v5.473c0 10.655-8.819 19.289-19.697 19.289h-107.53c-43.724 0-79.17 34.723-79.17 77.553v588.783c0 42.832 35.446 77.553 79.17 77.553h533.323c43.724 0 79.17-34.722 79.17-77.553V256.18c0-42.83-35.446-77.553-79.17-77.553H674.167c-10.876 0-19.692-8.634-19.692-19.289v-5.473c0-33.882-28.04-61.348-62.63-61.348z" />
+
+
+
+        </vector>
+    </item>
+</layer-list>
