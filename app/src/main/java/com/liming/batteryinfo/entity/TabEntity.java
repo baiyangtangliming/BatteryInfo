@@ -13,7 +13,6 @@ public class TabEntity {
     private TextView text;
 
     private int selectImage;
-    private int notSelectImage;
 
     private int selectColor;
 
@@ -24,13 +23,12 @@ public class TabEntity {
         this.text = text;
     }
 
-    public TabEntity(Fragment view, LinearLayout tabLayout, ImageView image, TextView text, int selectImage, int notSelectImage, int selectColor) {
+    public TabEntity(Fragment view, LinearLayout tabLayout, ImageView image, TextView text, int selectImage, int selectColor) {
         this.view = view;
         this.tabLayout = tabLayout;
         this.image = image;
         this.text = text;
         this.selectImage = selectImage;
-        this.notSelectImage = notSelectImage;
         this.selectColor = selectColor;
     }
 
@@ -40,14 +38,6 @@ public class TabEntity {
 
     public void setSelectImage(int selectImage) {
         this.selectImage = selectImage;
-    }
-
-    public int getNotSelectImage() {
-        return notSelectImage;
-    }
-
-    public void setNotSelectImage(int notSelectImage) {
-        this.notSelectImage = notSelectImage;
     }
 
     public int getSelectColor() {

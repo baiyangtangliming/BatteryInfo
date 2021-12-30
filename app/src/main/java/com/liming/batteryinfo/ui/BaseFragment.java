@@ -32,12 +32,13 @@ public class BaseFragment extends Fragment {
     }
 
     /**
-     *播放动画
+     * 播放动画
+     *
      * @param view
      */
     public ValueAnimator startAnimation(final View view) {
 
-        Log.d("==========>", "startAnimation: "+view.getId());
+        Log.d("==========>", "startAnimation: " + view.getId());
 
 
         Resources resources = getResources();
@@ -55,7 +56,7 @@ public class BaseFragment extends Fragment {
 
 
         //创建动画,这里的关键就是使用ArgbEvaluator, 后面2个参数就是 开始的颜色,和结束的颜色.
-         ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),colorList.get(0) , colorList.get(1));
+        ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorList.get(0), colorList.get(1));
 
         colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -76,7 +77,7 @@ public class BaseFragment extends Fragment {
                 ValueAnimator valueAnimator = (ValueAnimator) animator;
                 colorList.add(colorList.get(0));
                 colorList.remove(0);
-                valueAnimator.setIntValues(colorList.get(0),colorList.get(1));
+                valueAnimator.setIntValues(colorList.get(0), colorList.get(1));
                 valueAnimator.start();
             }
 
@@ -98,28 +99,25 @@ public class BaseFragment extends Fragment {
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
      * @param key
      * @param object
      */
-    public void setParam(String key, Object object){
+    public void setParam(String key, Object object) {
         String type = object == null ? "" : object.getClass().getSimpleName();
         SharedPreferences sp = getActivity().getBaseContext().getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if("String".equals(type)){
-            editor.putString(key, (String)object);
-        }
-        else if("Integer".equals(type)){
-            editor.putInt(key, (Integer)object);
-        }
-        else if("Boolean".equals(type)){
-            editor.putBoolean(key, (Boolean)object);
-        }
-        else if("Float".equals(type)){
-            editor.putFloat(key, (Float)object);
-        }
-        else if("Long".equals(type)){
-            editor.putLong(key, (Long)object);
+        if ("String".equals(type)) {
+            editor.putString(key, (String) object);
+        } else if ("Integer".equals(type)) {
+            editor.putInt(key, (Integer) object);
+        } else if ("Boolean".equals(type)) {
+            editor.putBoolean(key, (Boolean) object);
+        } else if ("Float".equals(type)) {
+            editor.putFloat(key, (Float) object);
+        } else if ("Long".equals(type)) {
+            editor.putLong(key, (Long) object);
         }
 
         editor.commit();
@@ -128,35 +126,34 @@ public class BaseFragment extends Fragment {
 
     /**
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
      * @param
      * @param key
      * @param defaultObject
      * @return
      */
-    public Object getParam(String key, Object defaultObject){
+    public Object getParam(String key, Object defaultObject) {
         String type = defaultObject.getClass().getSimpleName();
         SharedPreferences sp = getActivity().getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 
-        if("String".equals(type)){
-            return sp.getString(key, (String)defaultObject);
-        }
-        else if("Integer".equals(type)){
-            return sp.getInt(key, (Integer)defaultObject);
-        }
-        else if("Boolean".equals(type)){
-            return sp.getBoolean(key, (Boolean)defaultObject);
-        }
-        else if("Float".equals(type)){
-            return sp.getFloat(key, (Float)defaultObject);
-        }
-        else if("Long".equals(type)){
-            return sp.getLong(key, (Long)defaultObject);
+        if ("String".equals(type)) {
+            return sp.getString(key, (String) defaultObject);
+        } else if ("Integer".equals(type)) {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if ("Boolean".equals(type)) {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if ("Float".equals(type)) {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if ("Long".equals(type)) {
+            return sp.getLong(key, (Long) defaultObject);
         }
 
         return null;
     }
+
     /**
      * 清除所有数据
+     *
      * @param
      */
     public void clearAll() {

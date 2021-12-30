@@ -11,7 +11,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,6 +74,7 @@
                         android:id="@+id/battery"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        android:layout_marginBottom="50dp"
                         android:layout_below="@id/device"
                         android:layout_centerVertical="true"
                         android:layout_weight="1">
@@ -99,212 +101,57 @@
                             android:textColor="@color/config_color_white"
                             android:textSize="11dp" />
                     </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerVertical="true">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:orientation="horizontal">
-
-                            <TextView
-
-                                android:id="@+id/sjbattery"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center|center_vertical"
-                                android:text="设计容量：3300mA"
-                                android:textColor="@color/config_color_white"
-                                android:textSize="11dp" />
-
-                            <TextView
-                                android:id="@+id/xdbattery"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center|center_vertical"
-                                android:text="限定容量：3200mA"
-                                android:textColor="@color/config_color_white"
-                                android:textSize="11dp" />
-                        </LinearLayout>
-                    </RelativeLayout>
-
                 </LinearLayout>
             </FrameLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:background="@color/config_color_white"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/info_item_bg"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/ic_design_power" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="电池工艺"
-                        android:textColor="@color/config_color_gray_6"
-                        android:textSize="14dp" />
-
-                    <TextView
-                        android:id="@+id/tv_technology"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="未知"
-                        android:textColor="@color/config_color_gray_6"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/info_item_bg"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/ic_practical_power" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="循环次数"
-                        android:textColor="@color/config_color_gray_6"
-                        android:textSize="14dp" />
-
-                    <TextView
-                        android:id="@+id/tv_charge_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0次"
-                        android:textColor="@color/config_color_gray_6"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/info_item_bg"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/ic_health_power" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="电池状态"
-                        android:textColor="@color/config_color_gray_6"
-                        android:textSize="14dp" />
-
-                    <TextView
-                        android:id="@+id/tv_health"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="健康"
-                        android:textColor="@color/config_color_gray_6"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="170dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:background="#ffffff"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/main_item_bg"
+                    android:padding="20dp">
 
                     <com.liming.batteryinfo.view.BatteryView
                         android:id="@+id/batteryview"
                         android:layout_width="50dp"
                         android:layout_height="80dp"
-                        android:layout_margin="20dp"
+                        android:layout_centerVertical="true"
                         android:background="#fff"
                         android:gravity="center"
                         app:batteryOrientation="vertical" />
 
-                    <TextView
-                        android:id="@+id/batteryviewtip"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/batteryview"
-                        android:text="68%"
-                        android:textColor="#cccccc"
-                        android:textSize="35dp" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
+                        android:layout_toRightOf="@id/batteryview"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
 
+
                         <TextView
-                            android:id="@+id/temptip"
+                            android:id="@+id/batteryviewtip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="温度"
+                            android:gravity="center"
+                            android:text="68%"
                             android:textColor="#cccccc"
-                            android:textSize="16dp" />
+                            android:textSize="30dp" />
+
 
                         <TextView
                             android:id="@+id/temp"
@@ -315,15 +162,6 @@
                             android:textSize="25dp"
                             android:typeface="monospace" />
 
-                        <TextView
-                            android:id="@+id/voltagetip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_above="@+id/voltage"
-                            android:gravity="bottom"
-                            android:text="电压"
-                            android:textColor="#cccccc"
-                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/voltage"
@@ -333,30 +171,112 @@
                             android:gravity="center"
                             android:text="4.235V"
                             android:textColor="#cccccc"
-                            android:textSize="25dp" />
+                            android:textSize="20dp"
+                            android:visibility="gone" />
 
                     </LinearLayout>
+
+
                 </RelativeLayout>
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/main_item_bg"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_weight="1"
+                            android:text="容量"
+                            android:textColor="@color/config_color_gray_7"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/tv_battery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="4500/4394mAh"
+                            android:textColor="#cccccc"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/main_item_bg"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_weight="1"
+                            android:text="状态"
+                            android:textColor="@color/config_color_gray_7"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/tv_health"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="良好/0次"
+                            android:textColor="#cccccc"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <!--充电提示-->
-<!--            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/config_color_white"
-                android:orientation="vertical">
+            <!--            <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/config_color_white"
+                            android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:text="◉ 约18：23(43分钟)后响铃提醒您 电量冲至 89%"
-                    android:textColor="@color/app_color_theme_5"
-                    android:textSize="15sp" />
-            </LinearLayout>-->
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="left"
+                                android:paddingLeft="20dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:text="◉ 约18：23(43分钟)后响铃提醒您 电量冲至 89%"
+                                android:textColor="@color/app_color_theme_5"
+                                android:textSize="15sp" />
+                        </LinearLayout>-->
 
             <!--
                     <GridLayout
@@ -374,9 +294,9 @@
             -->
 
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:background="@color/config_color_white"
                 android:orientation="vertical">
                 <!--电量校准-->
@@ -428,10 +348,11 @@
                         android:textColor="@color/config_color_gray_7"
                         android:textSize="30dp" />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="#f0f0f0"/>
+                    android:background="#f0f0f0" />
                 <!--电量修改-->
                 <RelativeLayout
                     android:id="@+id/battery_change_item"
@@ -485,7 +406,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="#f0f0f0"/>
+                    android:background="#f0f0f0" />
                 <!--电流悬浮窗-->
                 <RelativeLayout
                     android:id="@+id/rl_current_windown"
@@ -519,10 +440,11 @@
                         android:textSize="10dp" />
 
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="#f0f0f0"/>
+                    android:background="#f0f0f0" />
             </LinearLayout>
 
 

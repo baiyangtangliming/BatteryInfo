@@ -43,7 +43,7 @@
                 android:id="@+id/id_tab1_imageview"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/main_not_select" />
+                android:src="@drawable/main" />
             <TextView
                 android:id="@+id/id_tab1_text"
                 android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                 android:id="@+id/id_tab2_imageview"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/charge_not_select" />
+                android:src="@drawable/charge" />
 
             <TextView
                 android:id="@+id/id_tab2_text"
@@ -94,7 +94,7 @@
                 android:id="@+id/id_tab3_imageview"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/settings_not_select" />
+                android:src="@drawable/settings" />
             <TextView
                 android:id="@+id/id_tab3_text"
                 android:layout_width="match_parent"

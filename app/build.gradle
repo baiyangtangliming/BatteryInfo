@@ -5,13 +5,13 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 def keyfile = file(properties.getProperty("keystore.path"))
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 26
     defaultConfig {
         applicationId "com.liming.batteryinfo"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 18
-        versionName "3.5"
+        targetSdkVersion 26
+        versionCode 22
+        versionName "3.5.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     // 这个是解决lint报错的代码
@@ -56,4 +56,5 @@ android {
 }
 
 dependencies {
+
 }

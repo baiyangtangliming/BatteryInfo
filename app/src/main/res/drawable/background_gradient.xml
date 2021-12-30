@@ -3,8 +3,8 @@
     android:shape="rectangle">
     <!--实现应用背景颜色渐变-->
     <gradient
-        android:startColor="#21D4FD"
-        android:endColor="#B721FF"
+        android:startColor="#c1dfc4"
+        android:endColor="#deecdd"
         android:angle="0"/>
 
 </shape>

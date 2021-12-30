@@ -131,7 +131,7 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
 
             case R.id.donate_item:
                 try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode=" + "https://qr.alipay.com/aex02181nvk2ld7ktftkj6d" + "%3F_s%3Dweb-other&_t=" + System.currentTimeMillis())));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode=https://qr.alipay.com/aex02181nvk2ld7ktftkj6d%3F_s%3Dweb-other&_t=" + System.currentTimeMillis())));
                 } catch (Exception e) {
                     Toast.makeText(view.getContext(), "启动支付宝失败", Toast.LENGTH_SHORT).show();
                 }

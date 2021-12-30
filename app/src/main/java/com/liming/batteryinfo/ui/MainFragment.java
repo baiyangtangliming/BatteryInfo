@@ -56,11 +56,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     @ViewInject(R.id.device_name)
     private TextView deviceName;
 
-    @ViewInject(R.id.sjbattery)
-    private TextView sjbattery;
-
-    @ViewInject(R.id.xdbattery)
-    private TextView xdbattery;
+    @ViewInject(R.id.tv_battery)
+    private TextView tvBattery;
 
     @ViewInject(R.id.device_nametip)
     private TextView deviceNametip;
@@ -74,11 +71,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     @ViewInject(R.id.voltage)
     private TextView voltage;
 
-    @ViewInject(R.id.tv_technology)
-    private TextView tvTechnology;//电池工艺
-
-    @ViewInject(R.id.tv_charge_count)
-    private TextView tvChargeCount;//充电循环次数
 
     @ViewInject(R.id.tv_health)
     private TextView tvHealth;//健康状况
@@ -201,8 +193,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         //上部分
         batteryCurrent.setText(batteryInfo.getCurrent() + "mA");//当前电流
         batteryCurrenttip.setText(batteryInfo.isCharging() ? "正在充电" : "正在放电");
-        sjbattery.setText("设计容量：" + batteryInfo.getBatteryCapacity(getActivity()) + " mAh");
-        xdbattery.setText("实际容量：" + (batteryInfo.getChargeFull() / 1000) + " mAh");
+        tvBattery.setText(batteryInfo.getBatteryCapacity(getActivity())+" | " + (batteryInfo.getChargeFull() / 1000) + " mAh");
 
         //中间部分
         if (batteryInfo.getChargeFull() != 0 && batteryInfo.getChargeCounter() != 0) {
@@ -216,9 +207,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         temp.setText((batteryInfo.getTemperature() / 10d) + "℃");
         voltage.setText((batteryInfo.getVoltage() / 1000d) + "V");
 
-        tvTechnology.setText(batteryInfo.getTechnology());//电池工艺
-        tvChargeCount.setText(batteryInfo.getCycleCount() + " 次");
-        tvHealth.setText(batteryInfo.getHealth());
+        tvHealth.setText(batteryInfo.getHealth()+" | "+batteryInfo.getCycleCount() + " 次");
 
         //工具部分
         tvHealthNum.setText(((batteryInfo.getChargeFull() / 10) / batteryInfo.getBatteryCapacity(getActivity())) + "%");
@@ -234,7 +223,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
      * 设置字体
      */
     private void setFonts() {
-        Typeface mtypeface = Typeface.createFromFile("/system/fonts/Roboto-Thin.ttf");
+        Typeface mtypeface = Typeface.createFromAsset(getContext().getAssets(),"Mitype.otf");
         batteryviewtip.setTypeface(mtypeface);
         temp.setTypeface(mtypeface);
         voltage.setTypeface(mtypeface);
